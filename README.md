@@ -5,7 +5,7 @@ proyecto tienda virtual hecho en php
 ## Integrantes
 
 - Cristian F. Sotomayor G.
-
+- Newton A. Huamanñahui R.
 
 ## Como subir ?
 
