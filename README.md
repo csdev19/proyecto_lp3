@@ -24,3 +24,7 @@ git push --set-upstream origin <nombre de la rama>
 ```
 http://localhost:8080/<carpeta donde esta el repositorio/client/index.php
 ```
+
+## Nueva adquisicion
+
+Instalar composer -> https://getcomposer.org/download/
