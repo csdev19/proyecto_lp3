@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::apiResource('productos', 'ProductosController');
+
+
+Route::apiResource('garlic', 'Garlic1Controller');
+
+Route::apiResource('garlic_mrd', 'GarlicDeMRdController');
+
+Route::apiResource('carro', 'CarroController');
+
+
