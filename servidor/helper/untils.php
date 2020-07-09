@@ -1,4 +1,5 @@
 <?php
+include 'constanst.php';
 
     function mySQLInsert(String $sql) {      
         // Conectar con el servidor de base de datos
