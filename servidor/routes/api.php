@@ -14,18 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
+//initialController
+Route::get('getLogin/{req?}'        , 'initialController@getLogin');
+Route::get('registrarUsuario/{req?}', 'initialController@registrarUsuario');
+
+//ProductosController
+Route::apiResource('getListarProductoIdCategoria/{req?}', 'ProductosController@getListarProductoIdCategoria');
+Route::apiResource('getListarProducto'                  , 'ProductosController@getListarProducto');
+Route::apiResource('getProductoSelect/{req?}'           , 'ProductosController@getProductoSelect');
 Route::apiResource('productos', 'ProductosController');
-
-
-Route::apiResource('garlic', 'Garlic1Controller');
-
-Route::apiResource('garlic_mrd', 'GarlicDeMRdController');
-
-Route::apiResource('carro', 'CarroController');
-
 
