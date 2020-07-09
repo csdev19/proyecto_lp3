@@ -24,5 +24,5 @@ Route::get('registrarUsuario/{req?}', 'initialController@registrarUsuario');
 Route::get('getListarProductoIdCategoria/{req?}', 'ProductosController@getListarProductoIdCategoria');
 Route::get('getListarProducto'                  , 'ProductosController@getListarProducto');
 Route::get('getProductoSelect/{req?}'           , 'ProductosController@getProductoSelect');
-Route::get('productos', 'ProductosController');
+// Route::get('productos', 'ProductosController');
 
