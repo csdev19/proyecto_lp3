@@ -7,83 +7,51 @@ use Illuminate\Http\Request;
 
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
-        $productos = Productos::all();
-        return $productos;
+            // Conectar con el servidor de base de datos
+            $conexion = mysqli_connect ("localhost", "root", "")
+            or die ("No se puede conectar con el servidor");
+            // Seleccionar base de datos
+            mysqli_select_db ($conexion,"laravel_prueba")
+                or die ("No se puede seleccionar la base de datos");
+            $instruccion    = "SELECT * FROM carros";
+            $consulta = mysqli_query ( $conexion,$instruccion)
+            or die ("Fallo en la consulta");
+            $tempArray = array();
+            $myArray = array();
+            while ($row = $consulta->fetch_object()) {
+                $tempArray = $row;
+                array_push($myArray, $tempArray);
+            }
+            $nuevo = json_encode($myArray);
+            return $nuevo;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // Para devolver una vista que es un formulario, Pero como es una API no lo usamos
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // Recibe request
         $producto = Productos::create($request->all());
         return $producto;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Productos  $productos
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Productos $productos)
-    {
-        //
+
+    function getListarProductoIdCategoria($req){
+        if (empty($req)){
+            return $OBJ_ERROR;
+        } 
+        return mySQLConsulta(" select * from producto where id_categoria = {$req->id_categoria}");
+    }
+    
+    function getListarProducto(){
+        echo 'holaaaaaaaaaa';
+        return mySQLConsulta("select * from producto");
+    }
+    
+    function getProductoSelect($req){
+        if (empty($req)){
+            return $OBJ_ERROR;
+        } 
+        return mySQLConsulta("select * from producto where id_producto={$req->id_producto}");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Productos  $productos
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Productos $productos)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Productos  $productos
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Productos $productos)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Productos  $productos
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Productos $productos)
-    {
-        //
-    }
 }
