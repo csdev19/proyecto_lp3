@@ -34,11 +34,15 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Helper\\": "app/helper/"
+
         },
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "../app/helper"
+
         ]
     },
     "autoload-dev": {
