@@ -21,8 +21,8 @@ Route::get('getLogin/{req?}'        , 'initialController@getLogin');
 Route::get('registrarUsuario/{req?}', 'initialController@registrarUsuario');
 
 //ProductosController
-Route::apiResource('getListarProductoIdCategoria/{req?}', 'ProductosController@getListarProductoIdCategoria');
-Route::apiResource('getListarProducto'                  , 'ProductosController@getListarProducto');
-Route::apiResource('getProductoSelect/{req?}'           , 'ProductosController@getProductoSelect');
-Route::apiResource('productos', 'ProductosController');
+Route::get('getListarProductoIdCategoria/{req?}', 'ProductosController@getListarProductoIdCategoria');
+Route::get('getListarProducto'                  , 'ProductosController@getListarProducto');
+Route::get('getProductoSelect/{req?}'           , 'ProductosController@getProductoSelect');
+Route::get('productos', 'ProductosController');
 
