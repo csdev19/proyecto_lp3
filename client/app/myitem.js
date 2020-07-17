@@ -8,7 +8,7 @@ Vue.component('myitem', {
 
     <div class="col-md-6 col-lg-3 ">
         <div class="product">
-            <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+            <a href="#" class="img-prod"><img class="img-fluid" :src="img_producto" alt="Colorlib Template">
                 <span  v-if="itemStatus" class="status"> {{ itemPercent }} %</span>
                 <div class="overlay"></div>
             </a>
@@ -52,14 +52,17 @@ Vue.component('myitem', {
     </div>
 
     `,
+    props: ['data'],
     data() {
+        console.log('data hijo +>>>>>>', this.data)
         return {
-            itemStatus: false,
-            itemPercent: 30,
-            itemNombre: 'Bell Pepper',
-            itemDiscount: false,
-            itemBaseAmount: 120,
-            itemDiscountAmoun: 40
+            itemStatus: this.data.itemStatus,
+            itemPercent: this.data.itemPercent,
+            itemNombre: this.data.itemNombre,
+            itemDiscount: this.data.itemDiscount,
+            itemBaseAmount: this.data.itemBaseAmount,
+            itemDiscountAmoun: this.data.itemDiscountAmoun,
+            img_producto : this.data.img_producto
         }
     }
 })

@@ -14,8 +14,8 @@ Vue.component('myqualities', {
                                 <span class="flaticon-shipped"></span>
                             </div>
                             <div class="media-body">
-                                <h3 class="heading">Free Shipping</h3>
-                                <span>On order over $100</span>
+                                <h3 class="heading">Envio gratis</h3>
+                                <span>En ordenes desde $100</span>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@ Vue.component('myqualities', {
                                 <span class="flaticon-diet"></span>
                             </div>
                             <div class="media-body">
-                                <h3 class="heading">Always Fresh</h3>
-                                <span>Product well package</span>
+                                <h3 class="heading">Siempre frezcos</h3>
+                                <span>Bien empaquetados</span>
                             </div>
                         </div>
                     </div>
@@ -36,8 +36,8 @@ Vue.component('myqualities', {
                                 <span class="flaticon-award"></span>
                             </div>
                             <div class="media-body">
-                                <h3 class="heading">Superior Quality</h3>
-                                <span>Quality Products</span>
+                                <h3 class="heading">Alta Calidad</h3>
+                                <span>Productos de calidad</span>
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,8 @@ Vue.component('myqualities', {
                                 <span class="flaticon-customer-service"></span>
                             </div>
                             <div class="media-body">
-                                <h3 class="heading">Support</h3>
-                                <span>24/7 Support</span>
+                                <h3 class="heading">Soporte</h3>
+                                <span>Soporte 24/7 </span>
                             </div>
                         </div>
                     </div>
