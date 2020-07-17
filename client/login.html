@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Kathiplass</title>
+        <title>DULCEKAT</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -31,7 +31,9 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         
         <script src="app/mytopline.js"></script>
-
+        <script src="app/loginform.js"></script>
+        <script src="app/registerform.js"></script>
+        <script src="app/myfooter.js"></script>
 
 
     </head>
@@ -43,159 +45,31 @@
 
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                    <a class="navbar-brand" href="index.jsp">Kathiplass</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="oi oi-menu"></span> Menu
-                    </button>
-    
-    
+                    <a class="navbar-brand" href="index.html">DULCEKAT</a>
                 </div>
             </nav>
+
             <div class="login-container">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active activo" href="#" id="login">Iniciar Sesión</a>
+                        <a class="nav-link active activo" id="login"  href="#"  v-on:click="handleChangeView('login')">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="register">Crear Cuenta</a>
+                        <a class="nav-link" id="register" href="#"  v-on:click="handleChangeView('register')">Crear Cuenta</a>
                     </li>
                 </ul>
+
                 <div class="container" style="width: 50%">
-                    <div id="formulario1" style="display: block">
-                        <form action="inicioSesion" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Usuario</label>
-                                <input name="user" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ejemplo: amorales357" style="font-size: 14px">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Contraseña</label>
-                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" style="font-size: 14px">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                        </form>
-                            <%if(mensaje!=null){%>
-                            <div class="alert alert-danger" role="alert">
-                                ${mensaje}
-                            </div>
-                            <%}%>
-                        
-                    </div>
-                    <div id="formulario2" style="display: none">
-                        <form class="needs-validation" novalidate action="registro" method="post">
-                            <div class="form-row">
-                                <div class="col-md-6 mb-2">
-                                    <label for="validationCustom01">Nombres</label>
-                                    <input name="nombre" type="text" class="form-control" id="validationCustom01" required placeholder="Ejemplo: Carlos" style="font-size: 14px">
-                                    <div class="invalid-feedback">
-                                        Ingrese su nombre
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Bien!
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="validationCustom02">Apellidos</label>
-                                    <input name="apellido" type="text" class="form-control" id="validationCustom02" required placeholder="Ejemplo: López Martínez" style="font-size: 14px">
-                                    <div class="invalid-feedback">
-                                        Ingrese su apellido
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Bien!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-6 mb-2">
-                                    <label for="validationCustom01">Usuario</label>
-                                    <input name="usuario" type="text" class="form-control" id="validationCustom01" required placeholder="Ej: carlos@gmail.com" style="font-size: 14px">
-                                    <div class="invalid-feedback">
-                                        Ingrese su usuario
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Bien!
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="validationCustom02">Contraseña</label>
-                                    <input name="contra" type="password" class="form-control" id="validationCustom02" required>
-                                    <div class="invalid-feedback">
-                                        Ingrese su contraseña
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Bien!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                                    <label class="form-check-label" for="invalidCheck">
-                                        Declaro que he leído y acepto los términos y condiciones de Kathiplass.
-                                    </label>
-                                    <div class="invalid-feedback">
-                                        Debes aceptar los términos y condiciones.
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary" type="submit">Registrarse</button>
-                        </form>
-    
-                    </div>
+
+                    <template v-if="viewSelected === 'login'">
+                        <loginform></loginform>
+                    </template>
+                    <template v-if="viewSelected === 'register'">
+                        <registerform></registerform>
+                    </template>
                 </div>
             </div>
-            <footer class="ftco-footer ftco-section">
-                <div class="container">
-                    <!--<div class="row">
-                        <div class="mouse">
-                            <a href="#" class="mouse-icon">
-                                <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-                            </a>
-                        </div>
-                    </div>-->
-                    <div class="row mb-5">
-                        <div class="col-md">
-                            <div class="ftco-footer-widget mb-4">
-                                <h2 class="ftco-heading-2">Kathiplass</h2>
-                                <p>Venta de productos de calidad y a un buen precio.</p>
-                                <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="ftco-footer-widget mb-4 ml-md-5">
-                                <h2 class="ftco-heading-2">Menú</h2>
-                                <ul class="list-unstyled">
-                                    <li><a href="#" class="py-2 d-block">Nosotros</a></li>
-                                    <li><a href="#" class="py-2 d-block">Contáctanos</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="ftco-footer-widget mb-4">
-                                <h2 class="ftco-heading-2">¿Alguna consulta?</h2>
-                                <div class="block-23 mb-3">
-                                    <ul>
-                                        <li><span class="icon icon-map-marker"></span><span class="text">Mercado Plaza Villa Sur, puesto A-29. Villa el Salvador</span></li>
-                                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">+51 999 999 999</span></a></li>
-                                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">contactos@kathiplass.com</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-    
-                            <p>
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Página web hecha por </i><a href="#" target="_blank" style="color: #F08080;">ANFAVA</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <myfooter></myfooter>
     
         </div>
        
@@ -224,26 +98,14 @@
         new Vue({
             el: '#appvue',
             data: {
-                lista_productos: [],
-                items: [1,2,34,5,3]
+                viewSelected: 'login'
             },
             created: function () {
-                console.log('se llama?', this.lista_productos)
-
-                const self = this;
-                // `this` hace referencia a la instancia vm
-                fetch('http://127.0.0.1:8000/api/getListarProducto')
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(myJson) {
-                    let lista = myJson || [];
-                    lista = lista.map(prod => {
-                        return new Item(prod);
-                    })
-                    self.lista_productos = self.lista_productos || [];
-                    self.lista_productos = [...self.lista_productos, ...lista];
-                });
+                console.log('se llama?')
+            },  methods: {
+                handleChangeView: function (option) {
+                    this.viewSelected = option;
+                }
             }
         })
 
