@@ -8,56 +8,26 @@ include '../app/helper/untils.php';
 
 class initialController extends Controller
 {
-    function registrarUsuario($req){    
+    function registrarUsuario(Request $req){    
        // Conectar con el servidor de base de datos
-        if (empty($req)){
-            return $OBJ_ERROR;
+
+        $isValidate = isNullEmpty($req->user) ?: isNullEmpty($req->password) ?: isNullEmpty($req->nom_user) ?: isNullEmpty($req->ape_user)  ;
+
+        if($isValidate){
+            return $isValidate;
         }
         
-        mySQLInsert("insert into usuario (usuario,contraseña,nomb_usuario,ape_usuario) 
-        values ({$req->user},{$req->password},{$req->nom_user},{$req->ape_user} )");
-        
-        // try {
-        //     $conexion = mysqli_connect ($SERVIDOR, $ROOT, $PASSWORD)
-        //     or die ("No se puede conectar con el servidor");
-        
-        //     mysqli_select_db ($conexion, "laravel_prueba")
-        //         or die ("No se puede seleccionar la base de datos");
-            
-        //     $consulta = mysqli_query ( 
-        //         $conexion,
-        //         "insert into usuario (usuario,contraseña,nomb_usuario,ape_usuario) 
-        //         values ({$req->user},{$req->password},{$req->nom_user},{$req->ape_user} )");
-            
-        //     if(!$consulta){
-        //         $object = (object) [
-        //             'usuario'      => $req->user,
-        //             'contraseña'   => $req->password,
-        //             'nomb_usuario' => $req->nom_user,
-        //             'ape_usuario'  => $req->ape_user,
-        //             'status'       => $_SESSION["STATUS_ERROR"],
-        //             'msj'          => $_SESSION["MSJ_ERROR"],
-
-        //         ];
-        //         return json_encode($consulta);
-
-        //     } else {
-        //         echo "Fallo en la consulta: " . $sql . "<br>" . mysqli_error($conexion);
-        //         return $OBJ_ERROR;
-        //     }
-        //     mysqli_close ($conexion);     
-        // }  catch (Exception $e) {
-        //     echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-        //     return $OBJ_ERROR;
-        // }
-                
+        return mySQLInsert("INSERT INTO usuario (usuario,contraseña,nomb_usuario,ape_usuario) 
+        VALUES ('{$req->user}','{$req->password}','{$req->nom_user}','{$req->ape_user}' )");
     }
     
-    function getLogin($req){
-        if (empty($req)){
-            return $OBJ_ERROR;
-        } 
-        return mySQLConsulta("select * from usuario where usuario = {$req->user} and contraseña={$req->password}");
+    function getLogin(Request $req){
+        $isValidate = isNullEmpty($req->user) ?: isNullEmpty($req->password);
+        if($isValidate){
+            return $isValidate;
+        }
+        
+        return mySQLConsulta("SELECT * FROM usuario WHERE usuario ='{$req->user}' AND contraseña='{$req->password}'");
     }
 
 }

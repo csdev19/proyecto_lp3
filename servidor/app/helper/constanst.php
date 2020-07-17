@@ -16,11 +16,19 @@ $_SESSION["STATUS_ERROR"]   = "2";
 
 //MESSAGES RESULT 
 $_SESSION["MSJ_ERROR"] = "Hubo un error.";
+$_SESSION["MSJ_CONTROL"] = "Accion no permitida.";
 
-//
+//OBJ ERROR
 $_SESSION["OBJ_ERROR"] = JSON_ENCODE(
             (object) [
                 'status' => $_SESSION["STATUS_ERROR"],
                 'msj'    => $_SESSION["MSJ_ERROR"]
              ]
             );
+//OBJ CONTROL
+$_SESSION["OBJ_CONTROL"] = JSON_ENCODE(
+    (object) [
+        'status' => $_SESSION["STATUS_CONTROL"],
+        'msj'    => $_SESSION["MSJ_CONTROL"]
+     ]
+    );
