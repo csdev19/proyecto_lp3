@@ -13,7 +13,7 @@ Route::get('getListarProducto'           , 'ProductosController@getListarProduct
 Route::get('getProductoSelect'           , 'ProductosController@getProductoSelect');
 
 
-getLogin -> user, password
-registrarUsuario -> user, password, nom_user,ape_user
-getListarProductoIdCategoria -> id_categoria
-getProductoSelect -> id_producto
+// getLogin -> user, password
+// registrarUsuario -> user, password, nom_user,ape_user
+// getListarProductoIdCategoria -> id_categoria
+// getProductoSelect -> id_producto
