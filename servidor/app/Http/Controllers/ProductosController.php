@@ -3,30 +3,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Productos;
 use Illuminate\Http\Request;
 
 include '../app/helper/untils.php';
 
 class ProductosController extends Controller
 {
-    function getListarProductoIdCategoria($req){
-        if (empty($req)){
-            return $OBJ_ERROR;
-        } 
-        return mySQLConsulta(" select * from producto where id_categoria = {$req->id_categoria}");
+    function getListarProductoIdCategoria(Request $req){
+        $isValidate = isNullEmpty($req->id_categoria);
+        if($isValidate){
+            return $isValidate;
+        }
+        return mySQLConsulta("SELECT * FROM producto WHERE id_categoria = '{$req->id_categoria}'");
     }
     
     function getListarProducto(){
     
-        return  mySQLConsulta("select * from producto");
+        return  mySQLConsulta("SELECT * FROM producto");
     }
     
-    function getProductoSelect($req){
-        if (empty($req)){
-            return $OBJ_ERROR;
-        } 
-        return mySQLConsulta("select * from producto where id_producto={$req->id_producto}");
+    function getProductoSelect(Request $req){
+        $isValidate = isNullEmpty($req->id_producto);
+        if($isValidate){
+            return $isValidate;
+        }
+        return mySQLConsulta("SELECT * FROM producto WHERE id_producto = {$req->id_producto}");
     }
 
 }

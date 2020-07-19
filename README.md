@@ -28,3 +28,8 @@ http://localhost:8080/<carpeta donde esta el repositorio/client/index.php
 ## Nueva adquisicion
 
 Instalar composer -> https://getcomposer.org/download/
+
+## LEVANTAR PROYECTO 
+DENTRO DE SERVIDOR EJECUTAR ESTO -> php artisan serve
+
+https://www.youtube.com/watch?v=gD-YmRZtRAc&t=347s

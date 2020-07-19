@@ -8,6 +8,7 @@ include '../app/helper/untils.php';
 
 class initialController extends Controller
 {
+ 
     function registrarUsuario($req){
        // Conectar con el servidor de base de datos
         if (empty($req)){
@@ -37,10 +38,6 @@ class initialController extends Controller
         //             'ape_usuario'  => $req->ape_user,
         //             'status'       => $_SESSION["STATUS_ERROR"],
         //             'msj'          => $_SESSION["MSJ_ERROR"],
-
-        //         ];
-        //         return json_encode($consulta);
-
         //     } else {
         //         echo "Fallo en la consulta: " . $sql . "<br>" . mysqli_error($conexion);
         //         return $OBJ_ERROR;
