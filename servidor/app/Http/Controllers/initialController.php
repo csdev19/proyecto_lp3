@@ -30,4 +30,8 @@ class initialController extends Controller
         return mySQLConsulta("SELECT * FROM usuario WHERE usuario ='{$req->user}' AND contraseña='{$req->password}'");
     }
 
+    function getUsers(){
+        return mySQLConsulta("select * from usuario");
+    }
+    
 }
