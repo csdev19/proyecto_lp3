@@ -26,7 +26,7 @@ http://localhost:8080/<carpeta donde esta el repositorio/client/index.php
 ```
 
 ## Nueva adquisicion
-
+composer install
 Instalar composer -> https://getcomposer.org/download/
 
 ## LEVANTAR PROYECTO 
