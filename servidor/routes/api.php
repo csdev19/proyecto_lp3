@@ -4,8 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //initialController
-Route::get('getLogin'        , 'initialController@getLogin');
-Route::post('registrarUsuario', 'initialController@registrarUsuario');
+Route::get('getLogin/{req?}'        , 'initialController@getLogin');
+Route::get('registrarUsuario/{req?}', 'initialController@registrarUsuario');
+Route::get('getUsers'               , 'initialController@getUsers');
 
 //ProductosController
 Route::get('getListarProductoIdCategoria', 'ProductosController@getListarProductoIdCategoria');
