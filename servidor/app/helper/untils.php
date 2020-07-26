@@ -32,7 +32,7 @@ include '../app/helper/constanst.php';
                 $newObject = json_encode($myArray);
                 return $newObject;
             } else {
-                echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD".$sql."<br>".mysqli_error($conexion);
+                echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD   ---- servidor>app>helper>constants".$sql."<br>".mysqli_error($conexion);
                 return $_SESSION["OBJ_ERROR"];
             }
             mysqli_close ($conexion);     
