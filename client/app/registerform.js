@@ -131,7 +131,31 @@ Vue.component('registerform', {
                 "nom_user" : this.firstnameInput,
                 "ape_user" : this.lastnameInput
             }
-            console.log({ body })
+            fetch("http://127.0.0.1:8000/api/registrarUsuario", {
+            "method": "POST",
+            "headers": {
+            },
+            "body": JSON.stringify({
+                "user": "cr11",
+                "password": "123456",
+                "nom_user": "cristian2",
+                "ape_user": "soto33"
+            })
+            })
+            .then(response => {
+            console.log(response);
+                return response.json();
+            })
+            .then(response => {
+            console.log(response);
+            })
+            .catch(err => {
+            console.error(err);
+            });
+
+            console.log('acabo')
+            return ;
+            console.log({...    body})
 
             fetch(`${URL_BASE}registrarUsuario`, {
                 "method": "POST",
@@ -145,7 +169,6 @@ Vue.component('registerform', {
             })
             .then(response => {
                 console.log(response);
-                return response.json()
             })
             .then(data => {
                 console.log('data', data)
