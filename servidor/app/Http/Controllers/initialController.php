@@ -10,7 +10,8 @@ class initialController extends Controller
 {
     function registrarUsuario(Request $req){    
        // Conectar con el servidor de base de datos
-
+        $idRol = $req->id_rol ?: 3;
+        ECHO "------USER ".$req->user."----- PASSWORD".$req->password."-- NOM_USER:".$req->nom_user."---APE_USER :".$req->ape_user."------ ROL :".$idRol;
         $isValidate = isNullEmpty($req->user) ?: isNullEmpty($req->password) ?: isNullEmpty($req->nom_user) ?: isNullEmpty($req->ape_user)  ;
 
         if($isValidate){
@@ -30,10 +31,9 @@ class initialController extends Controller
             ];
             return json_encode($object);
         }
-        $idRol = $req->id_rol ?: 3;
 
         return mySQLInsert("INSERT INTO usuario (usuario,contraseña,nomb_usuario,ape_usuario,_id_rol) 
-        VALUES ('{$req->user}','{$req->password}','{$req->nom_user}','{$req->ape_user}',$idRol )");
+        VALUES ('{$req->user}','{$req->password}','{$req->nom_user}','{$req->ape_user}',3 )");
     }
     
     function getLogin(Request $req){
