@@ -79,7 +79,6 @@ include '../app/helper/constanst.php';
 
     function validateConsuta($sql){
         try {
-            echo $sql;
             $conexion = mysqli_connect ($_SESSION["SERVIDOR"] , $_SESSION["ROOT"], $_SESSION["PASSWORD"])
                 or die ("No se puede conectar con el servidor");
         
