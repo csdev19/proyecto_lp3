@@ -6,7 +6,6 @@ proyecto tienda virtual hecho en php
 
 - Cristian F. Sotomayor G.
 - Newton A. Huamanñahui R.
-- hhohohoho
 
 ## Como subir ?
 
@@ -19,8 +18,11 @@ git commit -m 'mensaje que quieras'
 git push --set-upstream origin <nombre de la rama>
 ```
 
-## Como entrar
+## Crear un cotroller
+php artisan make:controller <name>Controller --resource
 
+
+## Como entrar
 ```
 http://localhost:8080/<carpeta donde esta el repositorio/client/index.php
 ```

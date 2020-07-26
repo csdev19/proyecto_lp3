@@ -32,7 +32,7 @@ include '../app/helper/constanst.php';
                 $newObject = json_encode($myArray);
                 return $newObject;
             } else {
-                echo "Fallo en la consulta: ".$sql."<br>".mysqli_error($conexion);
+                echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD".$sql."<br>".mysqli_error($conexion);
                 return $_SESSION["OBJ_ERROR"];
             }
             mysqli_close ($conexion);     
@@ -59,7 +59,7 @@ include '../app/helper/constanst.php';
                 ];
                 return json_encode($object);
             } else {
-                echo "Fallo en la consulta: " . $sql . "<br>" . mysqli_error($conexion)."<br>".$consulta;
+                echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD " . $sql . "<br>" . mysqli_error($conexion)."<br>".$consulta;
                 return $_SESSION["OBJ_ERROR"];
             }
             mysqli_close ($conexion);     

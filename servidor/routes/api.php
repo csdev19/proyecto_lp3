@@ -13,6 +13,20 @@ Route::get('getListarProductoIdCategoria', 'ProductosController@getListarProduct
 Route::get('getListarProducto'           , 'ProductosController@getListarProducto');
 Route::get('getProductoSelect'           , 'ProductosController@getProductoSelect');
 
+//Categoria
+Route::get('getCategoriaSelect', 'CategoriaContoller@getCategoriaSelect'); // CATEGORIA SELECCIONADA 
+Route::get('getListCategoria'  , 'CategoriaContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+
+//Pedidos
+Route::get('getprecioTotal'    , 'PedidoContoller@getprecioTotal'); // CATEGORIA SELECCIONADA 
+Route::get('getInsertProducto'  , 'PedidoContoller@getInsertProducto');   // LISTA DE CATEGORIAS 
+// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+
 // getLogin -> user, password
 // registrarUsuario -> user, password, nom_user,ape_user
 // getListarProductoIdCategoria -> id_categoria
