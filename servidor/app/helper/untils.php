@@ -37,7 +37,7 @@ include '../app/helper/constanst.php';
             }
             mysqli_close ($conexion);     
         }  catch (Exception $e) {
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n"; //
             return json_encode($_SESSION["OBJ_ERROR"]);
         }
 
@@ -79,7 +79,6 @@ include '../app/helper/constanst.php';
 
     function validateConsuta($sql){
         try {
-            echo $sql;
             $conexion = mysqli_connect ($_SESSION["SERVIDOR"] , $_SESSION["ROOT"], $_SESSION["PASSWORD"])
                 or die ("No se puede conectar con el servidor");
         
