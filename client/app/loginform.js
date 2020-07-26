@@ -1,6 +1,5 @@
 
 
-
 Vue.component('loginform', {
     template:
     `
@@ -10,13 +9,14 @@ Vue.component('loginform', {
                 <form action="inicioSesion" method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Usuario</label>
-                        <input 
-                            name="user" 
-                            class="form-control" 
-                            id="exampleInputEmail1" 
-                            aria-describedby="emailHelp" 
-                            placeholder="Ejemplo: amorales357" 
+                        <input
+                            name="user"
+                            class="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder="Ejemplo: amorales357"
                             style="font-size: 14px"
+                            v-model="userInput"
                         >
                     </div>
                     <div class="form-group">
@@ -28,9 +28,10 @@ Vue.component('loginform', {
                             id="exampleInputPassword1"
                             style="font-size: 14px"
                             placeholder="*****"
+                            v-model="passwordInput"
                         >
                     </div>
-                    <button 
+                    <button
                         type="button"
                         class="btn btn-primary"
                         v-on:click="handleLogin()"
@@ -46,12 +47,45 @@ Vue.component('loginform', {
     data() {
         return {
             displayError: false,
-            formInputs: {}
+            userInput: '',
+            passwordInput: '',
+            dataUser: null
         }
     },
     methods: {
         handleLogin: function() {
-            console.log('loging...')
+            console.log("userInput", this.userInput);
+            console.log("passwordInput", this.passwordInput);
+            fetch(`${URL_BASE}getLogin?user=${this.userInput}&password=${this.passwordInput}`, {
+                "method": "GET",
+                "headers": {
+                    "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55"
+                }
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log("data", data)
+                this.dataUser = data;
+                // dataApp = data;
+                // sessionStorage.setItem('usuario', JSON.stringify(this.dataUser))
+                localStorage.setItem('usuario', JSON.stringify(this.dataUser))
+                // Simulate an HTTP redirect:
+                // window.location.replace("file:///C:/xampp/htdocs/proyecto_lp3/client/index.html");
+            })
+            .catch(err => {
+                console.error(err);
+            });
+
+
+            /**
+            {
+                "status": "1",
+                "msj": "Sin resultados."
+            }
+             * 
+             */
         }
     }
 })

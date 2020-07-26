@@ -21,7 +21,7 @@ Vue.component('myheader', {
                             <a class="dropdown-item" href="shop.html">Productos</a>
                         </div>
                         </li>
-                        <li class="nav-item"><a href="about.html" class="nav-link">Nosotros</a></li>
+                        <li class="nav-item"  v-if="showOptions.opt2"><a href="about.html" class="nav-link">Nosotros</a></li>
                         <li class="nav-item"><a href="blog.html" class="nav-link">Contactanos</a></li>
                         <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
@@ -33,7 +33,9 @@ Vue.component('myheader', {
     `,
     data() {
         return {
-
+            showOptions: {
+                opt2: false
+            }
         }
     }
 })

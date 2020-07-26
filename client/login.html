@@ -34,7 +34,12 @@
         <script src="app/loginform.js"></script>
         <script src="app/registerform.js"></script>
         <script src="app/myfooter.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+        <script src="app/observable.js"></script>
 
+        
+        <script src="app/utils/constants.js"></script>
 
     </head>
     <body class="goto-here">
@@ -106,6 +111,9 @@
             methods: {
                 handleChangeView: function (option) {
                     this.viewSelected = option;
+                },
+                clicked: function() {
+                    console.log("clicked");
                 }
             }
         })
