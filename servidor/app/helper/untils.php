@@ -70,12 +70,12 @@ include '../app/helper/constanst.php';
         
     }
 
-    function isNullEmpty($msj, $key= null){
-        if($msj == null|| $msj === 'null' || $msj === 'undefine' || empty($msj) == 1){
+    function isNullEmpty($msj, $key= ''){
+        if($msj == null|| $msj === 'null' || $msj === 'undefine' || empty($msj) == 1){            
             return JSON_ENCODE(
                 (object) [
                     'status' => $_SESSION["STATUS_CONTROL"],
-                    'msj'    => $_SESSION["MSJ_CONTROL"] + "ESTO LLEGO MAL INVECIL DE MRD ",
+                    'msj'    => $_SESSION["MSJ_CONTROL"],
                     'key'    => $key,
                     'value'  => $msj
                  ]
