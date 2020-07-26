@@ -76,3 +76,34 @@ include '../app/helper/constanst.php';
         }
         return null;
     }
+
+    function validateConsuta($sql){
+        try {
+            echo $sql;
+            $conexion = mysqli_connect ($_SESSION["SERVIDOR"] , $_SESSION["ROOT"], $_SESSION["PASSWORD"])
+                or die ("No se puede conectar con el servidor");
+        
+            mysqli_select_db ($conexion, $_SESSION["DATA_BASE"])
+                or die ("No se puede seleccionar la base de datos");
+            
+            $consulta = mysqli_query ( $conexion,$sql);
+            
+            if(!isNullEmpty($consulta)){
+                $tempArray = array();
+                $myArray   = array();
+                while ($row = $consulta->fetch_object()) {
+                    $tempArray = $row;
+                    array_push($myArray, $tempArray);
+                }
+                return count($myArray) > 0;
+            } else {
+                echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD   ---- servidor>app>helper>constants".$sql."<br>".mysqli_error($conexion);
+                return $_SESSION["OBJ_ERROR"];
+            }
+            mysqli_close ($conexion);     
+        }  catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return $_SESSION["OBJ_ERROR"];
+        }
+  
+    }

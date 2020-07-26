@@ -20,7 +20,7 @@ class PedidoContoller extends Controller
         
     }
     function getInsertProducto(Request $req){
-        $isValidate = mySQLConsulta(
+        $isValidate = validateConsuta(
             "SELECT TRUE AS result
             FROM pedido_usuario AS pu,
                  pedidousuario_and_producto AS pap
@@ -29,13 +29,11 @@ class PedidoContoller extends Controller
              AND pu.id_pedidoUsuario = pap.id_pedidoUsuario 
              AND pu.flg_pedido   = 'N'
         ");
-        // $response = json_decode($isValidate);
-        // $imp = json_decode($isValidate,true);
-        // $imp2 = array_shift($imp[0]); //con esto accedes a la posición del array a imprimir $imp[1],$imp[2],etc...
-        // print($imp2);//puedes usar print o print_r
 
-        // echo 'LLEGO ESTOOO ::::: '.$isValidate."---------".$response->status;
-
+        if($isValidate == true){
+            echo "existe";
+        }
+        
     }
 
     function getCategoriaSelect(Request $req){
