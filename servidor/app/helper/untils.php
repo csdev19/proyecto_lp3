@@ -33,12 +33,12 @@ include '../app/helper/constanst.php';
                 return $newObject;
             } else {
                 echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD   ---- servidor>app>helper>constants".$sql."<br>".mysqli_error($conexion);
-                return $_SESSION["OBJ_ERROR"];
+                return json_encode($_SESSION["OBJ_ERROR"]);
             }
             mysqli_close ($conexion);     
         }  catch (Exception $e) {
             echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-            return $_SESSION["OBJ_ERROR"];
+            return json_encode($_SESSION["OBJ_ERROR"]);
         }
 
     }
@@ -60,19 +60,19 @@ include '../app/helper/constanst.php';
                 return json_encode($object);
             } else {
                 echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD " . $sql . "<br>" . mysqli_error($conexion)."<br>".$consulta;
-                return $_SESSION["OBJ_ERROR"];
+                return json_encode($_SESSION["OBJ_ERROR"]);
             }
             mysqli_close ($conexion);     
         }  catch (Exception $e) {
             echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-            return $_SESSION["OBJ_ERROR"];
+            return json_encode($_SESSION["OBJ_ERROR"]);
         }
         
     }
 
     function isNullEmpty($msj){
         if($msj == null|| $msj === 'null' || $msj === 'undefine' || empty($msj) == 1){
-            return $_SESSION["OBJ_CONTROL"];
+            return json_encode($_SESSION["OBJ_CONTROL"]);
         }
         return null;
     }
@@ -97,13 +97,12 @@ include '../app/helper/constanst.php';
                 }
                 return count($myArray) > 0;
             } else {
-                echo "Fallo en la consulta: REVISA TUS PTAS CONSTANTES ANIMAL DE MRD   ---- servidor>app>helper>constants".$sql."<br>".mysqli_error($conexion);
-                return $_SESSION["OBJ_ERROR"];
+                return json_encode($_SESSION["OBJ_ERROR"]);
             }
             mysqli_close ($conexion);     
         }  catch (Exception $e) {
             echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-            return $_SESSION["OBJ_ERROR"];
+            return json_encode($_SESSION["OBJ_ERROR"]);
         }
   
     }

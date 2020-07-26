@@ -22,7 +22,7 @@ class initialController extends Controller
                FROM usuario
               WHERE usuario = '{$req->user}'"
         );
-        echo $isValidate; 
+
         if($isValidate == true){
             $object = (object) [
                 'status' => $_SESSION["STATUS_CONTROL"],
@@ -31,7 +31,7 @@ class initialController extends Controller
             return json_encode($object);
         }
         $idRol = $req->id_rol ?: 3;
-        echo"55555555555555555" .$idRol;
+
         return mySQLInsert("INSERT INTO usuario (usuario,contraseña,nomb_usuario,ape_usuario,_id_rol) 
         VALUES ('{$req->user}','{$req->password}','{$req->nom_user}','{$req->ape_user}',$idRol )");
     }
