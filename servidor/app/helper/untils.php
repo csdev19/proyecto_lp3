@@ -37,7 +37,7 @@ include '../app/helper/constanst.php';
             }
             mysqli_close ($conexion);     
         }  catch (Exception $e) {
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n"; //
             return json_encode($_SESSION["OBJ_ERROR"]);
         }
 
