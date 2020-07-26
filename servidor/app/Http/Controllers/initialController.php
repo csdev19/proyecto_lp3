@@ -11,8 +11,8 @@ class initialController extends Controller
     function registrarUsuario(Request $req){    
        // Conectar con el servidor de base de datos
         $idRol = $req->id_rol ?: 3;
-        ECHO "------USER ".$req->user."----- PASSWORD".$req->password."-- NOM_USER:".$req->nom_user."---APE_USER :".$req->ape_user."------ ROL :".$idRol;
-        $isValidate = isNullEmpty($req->user) ?: isNullEmpty($req->password) ?: isNullEmpty($req->nom_user) ?: isNullEmpty($req->ape_user)  ;
+
+        $isValidate = isNullEmpty($req->user,'user') ?: isNullEmpty($req->password,'password') ?: isNullEmpty($req->nom_user,'nom_user') ?: isNullEmpty($req->ape_user, 'ape_user')  ;
 
         if($isValidate){
             return $isValidate;
