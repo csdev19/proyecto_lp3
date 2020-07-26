@@ -125,13 +125,13 @@ Vue.component('registerform', {
     methods: {
         handleRegister() {
             console.log('antes')
-            console.log(this.firstnameInput,
-                this.lastnameInput,
-                this.usuarioInput,
-                this.passwordInput
-             );
-
-            return ;
+            const body = {
+                "user"     : this.usuarioInput,
+                "password" : this.passwordInput,
+                "nom_user" : this.firstnameInput,
+                "ape_user" : this.lastnameInput
+            }
+            console.log({ body })
 
             fetch(`${URL_BASE}registrarUsuario`, {
                 "method": "POST",
@@ -140,22 +140,21 @@ Vue.component('registerform', {
                     "content-type": "application/json"
                 },
                 "body": {
-                    "user"     : this.usuarioInput,
-                    "password" : this.passwordInput,
-                    "nom_user" : this.firstnameInput,
-                    "ape_user" : this.lastnameInput
+                    ...body
                 }
             })
             .then(response => {
-            console.log(response);
+                console.log(response);
                 return response.json()
             })
             .then(data => {
                 console.log('data', data)
             })
             .catch(err => {
-            console.error(err);
+                console.error(err);
             });
+
+            console.log('1')
         }   
     }
 })
