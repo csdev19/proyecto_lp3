@@ -56,29 +56,19 @@ Vue.component('loginform', {
         handleLogin: function() {
             console.log("userInput", this.userInput);
             console.log("passwordInput", this.passwordInput);
-            fetch(`${URL_BASE}getLogin?user=${this.userInput}&password=${this.passwordInput}`, {
-                "method": "GET",
-                "headers": {
-                    "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55"
-                }
-            })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log("data", data)
-                this.dataUser = data;
-                // dataApp = data;
-                // sessionStorage.setItem('usuario', JSON.stringify(this.dataUser))
-                localStorage.setItem('usuario', JSON.stringify(this.dataUser))
-                // Simulate an HTTP redirect:
-                // window.location.replace("file:///C:/xampp/htdocs/proyecto_lp3/client/index.html");
-            })
-            .catch(err => {
-                console.error(err);
-            });
+            const obj = {
+                user: this.userInput,
+                password: this.passwordInput
+            }
 
-
+            loginUser(obj)
+            .then({data} => {
+                console.log('data', data)
+                localStorage.setItem(
+                    'usuario', 
+                    JSON.stringify(data)
+                )
+            })
             /**
             {
                 "status": "1",

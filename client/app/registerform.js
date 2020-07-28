@@ -130,52 +130,48 @@ Vue.component('registerform', {
                 "password" : this.passwordInput,
                 "nom_user" : this.firstnameInput,
                 "ape_user" : this.lastnameInput
-            }
-            fetch("http://127.0.0.1:8000/api/registrarUsuario", {
-            "method": "POST",
-            "headers": {
-            },
-            "body": JSON.stringify({
-                "user": "cr11",
-                "password": "123456",
-                "nom_user": "cristian2",
-                "ape_user": "soto33"
-            })
-            })
-            .then(response => {
-            console.log(response);
-                return response.json();
-            })
-            .then(response => {
-            console.log(response);
-            })
-            .catch(err => {
-            console.error(err);
-            });
+            };
 
-            console.log('acabo')
-            return ;
-            console.log({...    body})
-
-            fetch(`${URL_BASE}registrarUsuario`, {
-                "method": "POST",
-                "headers": {
-                    "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
-                    "content-type": "application/json"
-                },
-                "body": {
-                    ...body
-                }
-            })
-            .then(response => {
-                console.log(response);
-            })
+            registerUser(body)
             .then(data => {
                 console.log('data', data)
+                if(data.status == 'ok') {
+                    
+                    loginUser({
+                        user: this.usuarioInput,
+                        password: this.passwordInput
+                    })
+                    .then({data} => {
+                        console.log('data', data)
+                        localStorage.setItem(
+                            'usuario', 
+                            JSON.stringify(data)
+                        )
+                    })
+                }
             })
-            .catch(err => {
-                console.error(err);
-            });
+
+            // fetch(`${URL_BASE}registrarUsuario`, {
+            //     "method": "POST",
+            //     "headers": {
+            //         "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
+            //         "content-type": "application/json"
+            //     },
+            //     "body": JSON.stringify({
+            //         ...body
+            //     })
+            // })
+            // .then(response => {
+            //     return response.json();
+            // })
+            // .then(data => {
+            //     console.log('data', data)
+
+            //     localStorage.setItem('usuario', JSON.stringify(this.dataUser))
+            // })
+            // .catch(err => {
+            //     console.error(err);
+            // });
 
             console.log('1')
         }   
