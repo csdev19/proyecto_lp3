@@ -13,7 +13,7 @@ include '../app/helper/constanst.php';
             
             $consulta = mysqli_query ( $conexion,$sql);
             
-            if(!isNullEmpty($consulta)){
+            if(!isNullEmpty($consulta,'resConsulta')){
                 $tempArray = array();
                 $myArray   = array();
 
@@ -52,7 +52,7 @@ include '../app/helper/constanst.php';
             mysqli_select_db ($conexion, $_SESSION["DATA_BASE"]);
             $consulta = mysqli_query ( $conexion,$sql);
 
-            if(!isNullEmpty($consulta)){
+            if(!isNullEmpty($consulta,'resConsulta')){
                 $object = (object) [
                     'status' => $_SESSION["STATUS_SUCCES"],
                     'msj'    => "Se registro con exito."
@@ -70,7 +70,7 @@ include '../app/helper/constanst.php';
         
     }
 
-    function isNullEmpty($msj, $key= ''){
+    function isNullEmpty($msj, $key = null){
         if($msj == null|| $msj === 'null' || $msj === 'undefine' || empty($msj) == 1){            
             return JSON_ENCODE(
                 (object) [
@@ -96,7 +96,7 @@ include '../app/helper/constanst.php';
             
             $consulta = mysqli_query ( $conexion,$sql);
             
-            if(!isNullEmpty($consulta)){
+            if(!isNullEmpty($consulta,'resConsulta')){
                 $tempArray = array();
                 $myArray   = array();
                 while ($row = $consulta->fetch_object()) {

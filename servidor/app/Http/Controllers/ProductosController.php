@@ -10,7 +10,7 @@ include '../app/helper/untils.php';
 class ProductosController extends Controller
 {
     function getListarProductoIdCategoria(Request $req){
-        $isValidate = isNullEmpty($req->id_categoria);
+        $isValidate = isNullEmpty($req->id_categoria, 'id_categoria');
         if($isValidate){
             return $isValidate;
         }
@@ -23,7 +23,7 @@ class ProductosController extends Controller
     }
     
     function getProductoSelect(Request $req){
-        $isValidate = isNullEmpty($req->id_producto);
+        $isValidate = isNullEmpty($req->id_producto,'id_producto');
         if($isValidate){
             return $isValidate;
         }

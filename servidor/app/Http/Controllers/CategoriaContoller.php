@@ -15,7 +15,7 @@ class CategoriaContoller extends Controller
     }
 
     function getCategoriaSelect(Request $req){
-        $isValidate = isNullEmpty($req->id_categoria);
+        $isValidate = isNullEmpty($req->id_categoria,'id_categoria');
         if($isValidate){
             return $isValidate;
         }
