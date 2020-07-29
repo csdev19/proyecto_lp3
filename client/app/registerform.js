@@ -141,11 +141,13 @@ Vue.component('registerform', {
                         user: this.usuarioInput,
                         password: this.passwordInput
                     })
-                    .then({data} => {
+                    .then(({data}) => {
                         console.log('data', data)
+                        const info = (data.status == '1') ? '' : data;
+                        console.log("handleRegister -> info", info)
                         localStorage.setItem(
                             'usuario', 
-                            JSON.stringify(data)
+                            JSON.stringify(info)
                         )
                     })
                 }

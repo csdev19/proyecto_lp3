@@ -62,11 +62,14 @@ Vue.component('loginform', {
             }
 
             loginUser(obj)
-            .then({data} => {
+            .then(({data}) => {
                 console.log('data', data)
+                
+                console.log('data', data)
+                const info = (data.status == '1') ? '' : data;
                 localStorage.setItem(
                     'usuario', 
-                    JSON.stringify(data)
+                    JSON.stringify(info)
                 )
             })
             /**

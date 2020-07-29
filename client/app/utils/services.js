@@ -77,3 +77,33 @@ function loginUser(obj) {
 }
 
 
+function getListCategorias() {
+    return new Promise((resolve) => {
+        fetch(`${URL_BASE}getListCategoria`, {
+            "method": "GET",
+            "headers": {
+                "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55"
+            }
+        })
+        .then((response) => {
+            console.log('hola')
+            return response.json();
+        })
+        .then((data) => {
+            return resolve({
+                status: 'ok',
+                data
+            })
+        })
+        .catch(err => {
+            console.error(err);
+            return resolve({
+                status: 'error',
+                err
+            })
+        });
+    })
+
+}
+
+

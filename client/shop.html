@@ -4,14 +4,14 @@
     <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
-    
+
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
@@ -23,11 +23,11 @@
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.timepicker.css">
 
-    
+
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
-	
+
 	<!--  -->
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="app/mytopline.js"></script>
@@ -35,6 +35,8 @@
 	<script src="app/myhome.js"></script>
 	<script src="app/myitem.js"></script>
 	<script src="app/utils/models.js"></script>
+	<script src="app/utils/services.js"></script>
+	<script src="app/utils/constants.js"></script>
 
 	</head>
 
@@ -51,16 +53,22 @@
 					<div class="row justify-content-center">
 						<div class="col-md-10 mb-5 text-center">
 							<ul class="product-category">
-								<li><a href="#" class="active">All</a></li>
-								<li><a href="#">Vegetables</a></li>
-								<li><a href="#">Fruits</a></li>
-								<li><a href="#">Juice</a></li>
-								<li><a href="#">Dried</a></li>
+
+								<li v-for="categoria in categorias">
+									<a
+										v-bind:class="{ active: categoria.is_active }"
+										v-on:click="handleChangeCategoria(categoria.id_categoria)"
+									>
+										{{ categoria.nomb_categoria }}
+									</a>
+								</li>
+
 							</ul>
 						</div>
 					</div>
 					<div class="row">
-						<template v-for="producto in lista_productos">
+						<template v-for="producto in listFiltered"
+						>
 							<myitem :data="producto"></myitem>
 						</template>
 					</div>
@@ -111,7 +119,9 @@
 		el: '#appvue',
 		data: {
 			lista_productos: [],
-			items: [1,2,34,5,3]
+			items: [1,2,34,5,3],
+			categorias: [],
+			categoria_selected: null
 		},
 		created: function () {
 			console.log('se llama?', this.lista_productos)
@@ -119,18 +129,60 @@
 			const self = this;
 			// `this` hace referencia a la instancia vm
 			fetch('http://127.0.0.1:8000/api/getListarProducto')
-			.then(function(response) {
+			.then((response) => {
 				return response.json();
 			})
-			.then(function(myJson) {
+			.then((myJson) => {
 				console.log('myJson', myJson)
 				let lista = myJson || [];
 				lista = lista.map(prod => {
 					return new Item(prod);
 				})
-				self.lista_productos = self.lista_productos || [];
-				self.lista_productos = [...self.lista_productos, ...lista];
+				this.lista_productos = this.lista_productos || [];
+				this.lista_productos = [...this.lista_productos, ...lista];
 			});
+
+			getListCategorias()
+			.then(({data}) => {
+				console.log('data', data)
+				const categoria_all = {
+					"id_categoria": "0",
+					"nomb_categoria": "Todos",
+					"foto_categoria": "-",
+					"is_active": true
+				}
+				const categoriaClass = Array.from(data, item => new Categoria(item));
+				this.categorias = [categoria_all, ...data];
+				const [categoria_selected] = this.categorias.filter(cat => cat.is_active);
+				this.categoria_selected = categoria_selected.id_categoria;
+			})
+		},
+		computed: {
+			listFiltered() {
+				return this.lista_productos.filter(prod => {
+					if(this.categoria_selected == '0') {
+						return true;
+					} else {
+						return prod.id_categoria == this.categoria_selected;
+					}
+				});
+			}
+		},
+		methods: {
+			handleChangeCategoria: function(id_categoria) {
+				console.log('hola ', id_categoria)
+
+				this.categorias = this.categorias.map(cat => {
+					return {
+						...cat,
+						is_active: cat.id_categoria == id_categoria
+					}
+				});	
+				this.categoria_selected = '';	
+				this.$nextTick(()=> {
+					this.categoria_selected = id_categoria;
+				})
+			}
 		}
 	})
 

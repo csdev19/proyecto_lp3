@@ -14,5 +14,15 @@ class Item {
 		this.img_producto      = data.img_producto;
 		this.precio_producto   = data.precio_producto;
 		this.nomb_producto     = data.nomb_producto;
+		this.id_categoria      = data.id_categoria;
+	}
+}
+
+class Categoria {
+	constructor(data) {
+		this.id_categoria = data.id_categoria;
+		this.nomb_categoria = data.nomb_categoria;
+		this.foto_categoria = data.foto_categoria;
+		this.is_active      = data.is_active || false;
 	}
 }
