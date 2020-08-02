@@ -43,6 +43,7 @@ class initialController extends Controller
         }
         
         return mySQLConsulta("SELECT * FROM usuario WHERE usuario ='{$req->user}' AND contraseña='{$req->password}'");
+        //debo guardarlo en el storage para consultar sise logeo
     }
 
     function getUsers(){

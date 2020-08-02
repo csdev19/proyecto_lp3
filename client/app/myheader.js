@@ -16,13 +16,14 @@ Vue.component('myheader', {
                         <ul class="navbar-nav ml-auto">
                         <li class="nav-item active"><a href="index.html" class="nav-link">Inicio</a></li>
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">PRODUCTOS</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="shop.html">Productos</a>
+                            <a class="dropdown-item" href="shop.html" v-for="cat in categoria">{{cat.nomb_categoria}}</a>
                         </div>
                         </li>
                         <li class="nav-item"><a href="about.html" class="nav-link">Nosotros</a></li>
                         <li class="nav-item"><a href="blog.html" class="nav-link">Contactanos</a></li>
+                        <li class="nav-item"><a href="login.html" class="nav-link"><img src="images/avatar.png" width="18"></a></li>
                         <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
                         </ul>
@@ -31,9 +32,24 @@ Vue.component('myheader', {
             </nav>
         </div>
     `,
-    data() {
+    data(){
         return {
-
+            categoria: []           
         }
+    },
+    methods:{
+        loadCategory(){
+            fetch('http://127.0.0.1:8000/api/getListCategoria')
+					.then(response=>{
+						return response.json()
+					})
+					.then(data=>{
+						this.categoria = data;
+					});
+        }
+    },
+    created(){
+        this.loadCategory()
+        console.log('entree prro')
     }
 })

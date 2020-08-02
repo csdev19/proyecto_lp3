@@ -7,9 +7,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="client/css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="css/magnific-popup.css">
 	<link rel="stylesheet" href="css/aos.css">
@@ -20,7 +21,9 @@
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/mystyles.css">
+
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	
 	<script src="app/mytopline.js"></script>
 	<script src="app/myheader.js"></script>
 	<script src="app/myhome.js"></script>
@@ -37,8 +40,9 @@
 <body class="goto-here">
 
 	<div id='appvue'>
-        <mytopline></mytopline>
-        <myheader></myheader>
+		<mytopline></mytopline>
+			<myheader></myheader>
+        
 		<myhome></myhome>
 		<myqualities></myqualities>
 		<!-- <myvegetables></myvegetables> -->
@@ -52,13 +56,15 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="container">
 				<div class="row">
-					<template v-for="producto in lista_productos">
+					<template v-for="producto in lista_productos.slice(0,4)">
 						<myitem :data="producto"></myitem>
 					</template>
 				</div>
 			</div>
+			
 		</section>
 		<!-- <mydealofday></mydealofday> -->
 		<hr>
@@ -80,37 +86,49 @@
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 
 	<script>
-	new Vue({
-		el: '#appvue',
-		data: {
-			lista_productos: [],
-			items: [1,2,34,5,3]
-		},
-		created: function () {
-			console.log('se llama?', this.lista_productos)
+		new Vue({
+			el: '#appvue',
+			data: {
+				lista_productos: [],
+				items: [1,2,34,5,3],
+				lista_categoria: []
 
-			const self = this;
-			// `this` hace referencia a la instancia vm
-			fetch('http://127.0.0.1:8000/api/getListarProducto')
-			.then(function(response) {
-				return response.json();
-			})
-			.then(function(myJson) {
-				let lista = myJson || [];
-				lista = lista.map(prod => {
-					return new Item(prod);
+			},
+			methods:{
+				getProdutctos(){
+					
+				}
+			},
+			created: function () {
+				console.log('se llama?', this.lista_productos)
+				const self = this;
+				// `this` hace referencia a la instancia vm
+				fetch('http://127.0.0.1:8000/api/getListarProducto')
+				.then(function(response) {
+					return response.json();
 				})
-				self.lista_productos = self.lista_productos || [];
-				self.lista_productos = [...self.lista_productos, ...lista];
-			});
-		}
-	})
+				.then(function(myJson) {
+					let lista = myJson || [];
+					lista = lista.map(prod => {
+						return new Item(prod);
+					})
+					self.lista_productos = self.lista_productos || [];
+					self.lista_productos = [...self.lista_productos, ...lista];
+				});
 
-	</script>
+				fetch('http://127.0.0.1:8000/api/getCategoriaSelect?id_categoria=1',{
+					method: 'GET'
+				})
+				.then(function(asda){
+					console.log(asda)
+				})
+
+			}
+		})
+	
+		</script>
   </body>
 </html>

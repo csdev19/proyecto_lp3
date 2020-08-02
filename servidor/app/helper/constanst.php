@@ -4,7 +4,7 @@ ob_start();
 
 //VALUES OF CONECTION
 $_SESSION["ROOT"]         = "root";      //USER DE MYSQL
-$_SESSION["PASSWORD"]     = "root";      //PASSWORD DE MYSQL
+$_SESSION["PASSWORD"]     = "";      //PASSWORD DE MYSQL
 $_SESSION["SERVIDOR"]     = "localhost"; //SERVIDOR
 $_SESSION["DATA_BASE"]    = "pruebita";  //NOMBRE DE LA BASE DE DATOS // NO PUSHEAR ESTO MRD :V
 
