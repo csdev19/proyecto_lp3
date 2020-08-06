@@ -23,9 +23,14 @@ Vue.component('myheader', {
                         </li>
                         <li class="nav-item"><a href="about.html" class="nav-link">Nosotros</a></li>
                         <li class="nav-item"><a href="blog.html" class="nav-link">Contactanos</a></li>
-                        <li class="nav-item"><a href="login.html" class="nav-link"><img src="images/avatar.png" width="18"></a></li>
+                        <template v-if=" userdb === null ">
+                        <li class="nav-item" ><a href="login.html" class="nav-link"><img src="images/avatar.png" width="18"></a></li>
                         <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
+                        </template>
+                        <template v-else>
+                        <li class="nav-item"><a href="#" class="nav-link">{{userdb.nombre}}</a></li>
+                        <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                        </template>
                         </ul>
                     </div>
                 </div>
@@ -34,7 +39,8 @@ Vue.component('myheader', {
     `,
     data(){
         return {
-            categoria: []           
+            categoria: [],
+               userdb: {}        
         }
     },
     methods:{
@@ -46,10 +52,23 @@ Vue.component('myheader', {
 					.then(data=>{
 						this.categoria = data;
 					});
+        },
+        loadUserDate(){
+            let data = localStorage.getItem('user')
+            
+            if(data === null || data === "undefined"){
+                console.log('no hay logeo')
+                this.userdb = null
+            }else{
+                console.log('logeado')
+                let usuario = JSON.parse(data)
+                this.userdb.nombre = usuario.nomb_usuario
+                
+            }
         }
     },
     created(){
         this.loadCategory()
-        console.log('entree prro')
+        this.loadUserDate()
     }
 })
