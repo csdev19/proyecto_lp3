@@ -6,6 +6,7 @@ proyecto tienda virtual hecho en php
 
 - Cristian F. Sotomayor G.
 - Newton A. Huamanñahui R.
+- Angelo Ingo Mendoza (y no se usar git)
 
 ## Como subir ?
 
