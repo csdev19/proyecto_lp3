@@ -92,6 +92,10 @@
 			items: [1,2,34,5,3]
 		},
 		created: function () {
+
+			let usuario = localStorage.getItem('usuario');
+            console.log("usuario", usuario)
+
 			console.log('se llama?', this.lista_productos)
 
 			const self = this;
@@ -102,6 +106,7 @@
 			})
 			.then(function(myJson) {
 				let lista = myJson || [];
+				console.log("lista", lista)
 				lista = lista.map(prod => {
 					return new Item(prod);
 				})

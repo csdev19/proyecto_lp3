@@ -1,5 +1,4 @@
-
-
+// import * as constants from './utils/constants';
 
 Vue.component('registerform', {
     template: 
@@ -12,7 +11,16 @@ Vue.component('registerform', {
                     <div class="form-row">
                         <div class="col-md-6 mb-2">
                             <label for="validationCustom01">Nombres</label>
-                            <input name="nombre" type="text" class="form-control" id="validationCustom01" required placeholder="Ejemplo: Carlos" style="font-size: 14px">
+                            <input 
+                                name="nombre" 
+                                type="text" 
+                                class="form-control" 
+                                id="validationCustom01" 
+                                required 
+                                placeholder="Ejemplo: Carlos" 
+                                style="font-size: 14px"
+                                v-model="firstnameInput"
+                            >
                             <div class="invalid-feedback">
                                 Ingrese su nombre
                             </div>
@@ -22,7 +30,16 @@ Vue.component('registerform', {
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="validationCustom02">Apellidos</label>
-                            <input name="apellido" type="text" class="form-control" id="validationCustom02" required placeholder="Ejemplo: López Martínez" style="font-size: 14px">
+                            <input 
+                                name="apellido" 
+                                type="text" 
+                                class="form-control"
+                                id="validationCustom02" 
+                                required 
+                                placeholder="Ejemplo: López Martínez"
+                                style="font-size: 14px"
+                                v-model="lastnameInput"
+                            >
                             <div class="invalid-feedback">
                                 Ingrese su apellido
                             </div>
@@ -34,7 +51,16 @@ Vue.component('registerform', {
                     <div class="form-row">
                         <div class="col-md-6 mb-2">
                             <label for="validationCustom01">Usuario</label>
-                            <input name="usuario" type="text" class="form-control" id="validationCustom01" required placeholder="Ej: carlos@gmail.com" style="font-size: 14px">
+                            <input 
+                                name="usuario" 
+                                type="text" 
+                                class="form-control"
+                                id="validationCustom01" 
+                                required 
+                                placeholder="Ej: carlos@gmail.com"
+                                style="font-size: 14px"
+                                v-model="usuarioInput"
+                            >
                             <div class="invalid-feedback">
                                 Ingrese su usuario
                             </div>
@@ -44,7 +70,14 @@ Vue.component('registerform', {
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="validationCustom02">Contraseña</label>
-                            <input name="contra" type="password" class="form-control" id="validationCustom02" required>
+                            <input 
+                                name="contra" 
+                                type="password" 
+                                class="form-control"
+                                id="validationCustom02"
+                                required
+                                v-model="passwordInput"
+                            >
                             <div class="invalid-feedback">
                                 Ingrese su contraseña
                             </div>
@@ -55,7 +88,12 @@ Vue.component('registerform', {
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" value="" 
+                                id="invalidCheck" 
+                                required
+                            >
                             <label class="form-check-label" for="invalidCheck">
                                 Declaro que he leído y acepto los términos y condiciones de Kathiplass.
                             </label>
@@ -64,7 +102,11 @@ Vue.component('registerform', {
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Registrarse</button>
+                    <button 
+                        class="btn btn-primary" 
+                        type="button"
+                        v-on:click="handleRegister()"
+                    >Registrarse</button>
                 </form>
 
             </div>
@@ -74,7 +116,68 @@ Vue.component('registerform', {
     `,
     data() {
         return {
-
+            firstnameInput: '',
+            lastnameInput: '',
+            usuarioInput: '',
+            passwordInput: ''
         }
+    },
+    methods: {
+        handleRegister() {
+            console.log('antes')
+            const body = {
+                "user"     : this.usuarioInput,
+                "password" : this.passwordInput,
+                "nom_user" : this.firstnameInput,
+                "ape_user" : this.lastnameInput
+            };
+
+            registerUser(body)
+            .then(data => {
+                console.log('data', data)
+                if(data.status == 'ok') {
+                    
+                    loginUser({
+                        user: this.usuarioInput,
+                        password: this.passwordInput
+                    })
+                    .then(({data}) => {
+                        console.log('data', data)
+                        const info = (data.status == '1') ? '' : data;
+                        console.log("handleRegister -> info", info)
+                        localStorage.setItem(
+                            'usuario', 
+                            JSON.stringify(info)
+                        )
+                    })
+                }
+            })
+
+            // fetch(`${URL_BASE}registrarUsuario`, {
+            //     "method": "POST",
+            //     "headers": {
+            //         "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
+            //         "content-type": "application/json"
+            //     },
+            //     "body": JSON.stringify({
+            //         ...body
+            //     })
+            // })
+            // .then(response => {
+            //     return response.json();
+            // })
+            // .then(data => {
+            //     console.log('data', data)
+
+            //     localStorage.setItem('usuario', JSON.stringify(this.dataUser))
+            // })
+            // .catch(err => {
+            //     console.error(err);
+            // });
+
+            console.log('1')
+        }   
     }
 })
+
+

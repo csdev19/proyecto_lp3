@@ -1,6 +1,5 @@
 
 
-
 Vue.component('loginform', {
     template:
     `
@@ -10,13 +9,14 @@ Vue.component('loginform', {
                 <form action="inicioSesion" method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Usuario</label>
-                        <input 
-                            name="user" 
-                            class="form-control" 
-                            id="exampleInputEmail1" 
-                            aria-describedby="emailHelp" 
-                            placeholder="Ejemplo: amorales357" 
+                        <input
+                            name="user"
+                            class="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder="Ejemplo: amorales357"
                             style="font-size: 14px"
+                            v-model="userInput"
                         >
                     </div>
                     <div class="form-group">
@@ -28,9 +28,10 @@ Vue.component('loginform', {
                             id="exampleInputPassword1"
                             style="font-size: 14px"
                             placeholder="*****"
+                            v-model="passwordInput"
                         >
                     </div>
-                    <button 
+                    <button
                         type="button"
                         class="btn btn-primary"
                         v-on:click="handleLogin()"
@@ -46,12 +47,38 @@ Vue.component('loginform', {
     data() {
         return {
             displayError: false,
-            formInputs: {}
+            userInput: '',
+            passwordInput: '',
+            dataUser: null
         }
     },
     methods: {
         handleLogin: function() {
-            console.log('loging...')
+            console.log("userInput", this.userInput);
+            console.log("passwordInput", this.passwordInput);
+            const obj = {
+                user: this.userInput,
+                password: this.passwordInput
+            }
+
+            loginUser(obj)
+            .then(({data}) => {
+                console.log('data', data)
+                
+                console.log('data', data)
+                const info = (data.status == '1') ? '' : data;
+                localStorage.setItem(
+                    'usuario', 
+                    JSON.stringify(info)
+                )
+            })
+            /**
+            {
+                "status": "1",
+                "msj": "Sin resultados."
+            }
+             * 
+             */
         }
     }
 })

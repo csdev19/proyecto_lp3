@@ -27,74 +27,49 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <!--  -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="app/mytopline.js" ></script>
-    <script src="app/myheader.js"></script>
-    <script src="app/myfooter.js" ></script>
-
-  </head>
-  <body class="goto-here">
-
-		<div id='blog-view'>
-
-      <mytopline></mytopline>
-      <myheader></myheader>
-
-      <div class="hero-bread" style="background-color: white ;padding: 0.1px">
-        <div class="container">
-            <div class="row justify-content-center mb-3 pb-3">
-                <div class="col-md-12 heading-section text-center ftco-animate">
-                    <h2 class="mb-4" style="font-size: 60px">Contáctanos</h2>
-                </div>
-            </div>  
-        </div>
-      </div>
-
-      <section class="ftco-section contact-section bg-light">
-        <div class="container">
-            <div class="row d-flex mb-5 contact-info">
-                <div class="w-100"></div>
-                <div class="col-md-3 d-flex">
-                    <div class="info bg-white p-4">
-                        <p><span>Dirección:</span> Mercado Plaza Villa Sur, puesto A-29. Villa el Salvador</p>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex">
-                    <div class="info bg-white p-4">
-                        <p><span>Teléfono:</span> <a href="tel://+51 999 999 999">+51 999 999 999</a></p>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex">
-                    <div class="info bg-white p-4">
-                        <p><span>Correo:</span> <a href="mailto:contactos@kathiplass.com">contactos@kathiplass.com</a></p>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex">
-                    <div class="info bg-white p-4">
-                        <p><span>Sitio web:</span> <a href="#">kathiplass.com</a></p>
-                    </div>
-                </div>          
-            </div>
-        </div>
-        
-        <div class="col-md-6 d-flex" style="margin:auto">
-            <div>
-                <h2 class="mb-4" style="text-align: center; font-weight: bold">Ubicación</h2>
-                <div style="margin: auto">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3899.5268535545656!2d-76.93586813810323!3d-12.212564423685597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x18c3402ddaa33145!2sPlaza%20Villa%20Sur!5e0!3m2!1ses-419!2spe!4v1574200652966!5m2!1ses-419!2spe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                </div>               
-            </div>
-        </div>
-    </section>
-
-    <myfooter></myfooter>
+	<script src="app/mytopline.js"></script>
+	<script src="app/myheader.js"></script>
+	<script src="app/myhome.js"></script>
+	<script src="app/myfooter.js"></script>
+	<script src="app/myitemblog.js"></script>
     
-  
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-    </div>
+    </head>
+    <body class="goto-here">
+
+        <div id='appvue'>
+            <mytopline></mytopline>
+            <myheader></myheader>
+            <myhome></myhome>
+
+
+            <section class="ftco-section ftco-degree-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 ">
+                            <div class="row">
+                                <template v-for="card in infoCards">
+                                    <myitemblog :data="card"></myitemblog>
+                                </template>
+
+                            </div>
+                        </div> <!-- .col-md-8 -->
+                    </div>
+                </div>
+            </section> <!-- .section -->
+
+            <myfooter></myfooter>
+
+        </div>
+
+    <!-- END nav -->
+
+
+    <!-- loader -->
+    <!-- <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> -->
+
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -109,14 +84,122 @@
     <script src="js/jquery.animateNumber.min.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
     <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/main2.js"></script>
 
-  <script>
-    new Vue({
-      el: '#blog-view'
-    });
-  </script>
-    
-  </body>
+    <script>
+	new Vue({
+		el: '#appvue',
+		data: {
+            infoCards: [{
+                image:'images/image_1.jpg',
+                actionBtn: 'Ver mas',
+                writedBy: 'Cristian'
+            },{
+                image:'images/image_2.jpg',
+                actionBtn: 'Ver mas',
+                writedBy: 'Cristian'
+            },{
+                image:'images/image_3.jpg',
+                writedBy: 'Cristian',
+                actionBtn: 'Ver mas'
+            },{
+                image:'images/image_4.jpg',
+                writedBy: 'Cristian',
+                actionBtn: 'Ver mas'
+            },{
+                image:'images/image_5.jpg',
+                writedBy: 'Cristian',
+                actionBtn: 'Ver mas'
+            }]
+		}
+	})
+
+	</script>
+
+
+    </body>
 </html>
+
+<!-- 
+<div class="col-md-12 d-flex ">
+<div class="blog-entry align-self-stretch d-md-flex">
+<a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+</a>
+<div class="text d-block pl-md-4">
+    <div class="meta mb-3">
+    <div><a href="#">July 20, 2019</a></div>
+    <div><a href="#">Admin</a></div>
+    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+    </div>
+    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    <p><a href="blog-single.html" class="btn btn-primary py-2 px-3">Read more</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-12 d-flex ">
+<div class="blog-entry align-self-stretch d-md-flex">
+<a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
+</a>
+<div class="text d-block pl-md-4">
+    <div class="meta mb-3">
+    <div><a href="#">July 20, 2019</a></div>
+    <div><a href="#">Admin</a></div>
+    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+    </div>
+    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    <p><a href="blog-single.html" class="btn btn-primary py-2 px-3">Read more</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-12 d-flex ">
+<div class="blog-entry align-self-stretch d-md-flex">
+<a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
+</a>
+<div class="text d-block pl-md-4">
+    <div class="meta mb-3">
+    <div><a href="#">July 20, 2019</a></div>
+    <div><a href="#">Admin</a></div>
+    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+    </div>
+    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    <p><a href="blog-single.html" class="btn btn-primary py-2 px-3">Read more</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-12 d-flex ">
+<div class="blog-entry align-self-stretch d-md-flex">
+<a href="blog-single.html" class="block-20" style="background-image: url('images/image_4.jpg');">
+</a>
+<div class="text d-block pl-md-4">
+    <div class="meta mb-3">
+    <div><a href="#">July 20, 2019</a></div>
+    <div><a href="#">Admin</a></div>
+    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+    </div>
+    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    <p><a href="blog-single.html" class="btn btn-primary py-2 px-3">Read more</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-12 d-flex ">
+<div class="blog-entry align-self-stretch d-md-flex">
+<a href="blog-single.html" class="block-20" style="background-image: url('images/image_5.jpg');">
+</a>
+<div class="text d-block pl-md-4">
+    <div class="meta mb-3">
+    <div><a href="#">July 20, 2019</a></div>
+    <div><a href="#">Admin</a></div>
+    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+    </div>
+    <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    <p><a href="blog-single.html" class="btn btn-primary py-2 px-3">Read more</a></p>
+</div>
+</div>
+</div> -->
