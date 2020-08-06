@@ -36,15 +36,21 @@ Vue.component('myitem', {
                 </div>
                 <div class="bottom-area d-flex px-3">
                     <div class="m-auto d-flex">
-                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                            <span><i class="ion-ios-menu"></i></span>
-                        </a>
-                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+    					<template v-if="showButtons[0]">
+                            <a class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                <span><i class="ion-ios-menu"></i></span>
+                            </a>
+                        </template>
+    					<template v-if="showButtons[1]">
+                            <a class="buy-now d-flex justify-content-center align-items-center mx-1" v-on:click="handleShop()">
                             <span><i class="ion-ios-cart"></i></span>
-                        </a>
-                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                            </a>
+                        </template>
+    					<template v-if="showButtons[2]">
+                            <a class="heart d-flex justify-content-center align-items-center">
                             <span><i class="ion-ios-heart"></i></span>
-                        </a>
+                            </a>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -57,31 +63,25 @@ Vue.component('myitem', {
     `,
     props: ['data'],
     data() {
-        // console.log('data hijo +>>>>>>', this.data)
         return {
-            itemStatus: this.data.itemStatus,
-            itemPercent: this.data.itemPercent,
-            itemNombre: this.data.itemNombre,
-            itemDiscount: this.data.itemDiscount,
-            itemBaseAmount: this.data.itemBaseAmount,
-            itemDiscountAmoun: this.data.itemDiscountAmoun,
-            img_producto : this.data.img_producto
+            itemStatus        : this.data.itemStatus,
+            itemPercent       : this.data.itemPercent,
+            itemNombre        : this.data.itemNombre,
+            itemDiscount      : this.data.itemDiscount,
+            itemBaseAmount    : this.data.itemBaseAmount,
+            itemDiscountAmoun : this.data.itemDiscountAmoun,
+            img_producto      : this.data.img_producto,
+            //
+            showButtons       : [false, true, false]
+        }
+    },
+    methods: {
+        handleShop: function() {
+			let shopList = localStorage.getItem('shopList');
+            // $emit('change', $event.target.checked)
+            this.$emit('shopevent', this.data)
         }
     }
 })
 
 
-
-
-
-
-
-
-/***
-  
- 
-
-   
-  
-  
- */
