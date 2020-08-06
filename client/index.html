@@ -132,7 +132,30 @@
                     JSON.stringify(shopList)
                 );
 
+                const body = {
+                    id_user : 1,
+                    lista_productos: shopList
+                }
 
+                fetch(`${URL_BASE}insertProducto`, {
+                    "method": "POST",
+                    "headers": {
+                        "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
+                        "content-type": "application/json"
+                    },
+                    "body": JSON.stringify({
+                        ...body
+                    })
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('data', data)
+                })
+                .catch(err => {
+                    console.error(err);
+                });
             }
         },
         created: function () {
