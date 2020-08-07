@@ -19,7 +19,9 @@ class PedidoContoller extends Controller
 
         
     }
-    function getInsertProducto(Request $req){
+    function insertProducto(Request $req){
+       
+       
         $isValidate = validateConsuta(
             "SELECT TRUE AS result
             FROM pedido_usuario AS pu,
@@ -27,13 +29,14 @@ class PedidoContoller extends Controller
            WHERE pu.id_usuario   = '{$req->id_user}'
              AND pap.id_producto = '{$req->id_producto}'  
              AND pu.id_pedidoUsuario = pap.id_pedidoUsuario 
-             AND pu.flg_pedido   = 'N'
-        ");
+             AND pu.flg_pedido   = 'N'"
+        );
 
         if($isValidate == true){
-            echo "existe";
+            return mySQLConsulta("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
         }
 
+        return mySQLConsulta("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
 
     }
 

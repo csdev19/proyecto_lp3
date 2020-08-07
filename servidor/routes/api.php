@@ -19,7 +19,7 @@ Route::get('getListCategoria'  , 'CategoriaContoller@getListCategoria');   // LI
 
 //Pedidos
 Route::get('getprecioTotal'    , 'PedidoContoller@getprecioTotal'); // CATEGORIA SELECCIONADA 
-Route::get('getInsertProducto'  , 'PedidoContoller@getInsertProducto');   // LISTA DE CATEGORIAS 
+Route::post('insertProducto'   , 'PedidoContoller@insertProducto'); // LISTA DE CATEGORIAS 
 // Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
 // Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
 // Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
