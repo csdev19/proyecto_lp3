@@ -38,7 +38,7 @@
 
     <div id='appvue'>
         <mytopline></mytopline>
-        <myheader></myheader>
+        <myheader :lista="shopList"></myheader>
         <myhome></myhome>
         <myqualities></myqualities>
         <!-- <myvegetables></myvegetables> -->
@@ -131,16 +131,17 @@
             lista_productos: [],
             items: [1,2,34,5,3],
             list_cat: [],
-            ayuda: null
+            ayuda: null,
+            shopList: []
         },
         methods: {
             handleShop: function(event) {
-                console.log('puta no se')
                 let shopList = localStorage.getItem('shopList');
                 console.log("handleShop -> shopList", shopList)
                 if(!shopList) {
                     shopList = [];
                 } else {
+                    console.log('aqui')
                     shopList = (typeof shopList == 'string') ? JSON.parse(shopList) : shopList;
                 }
                 console.log("handleShop -> shopList", shopList)
@@ -149,7 +150,7 @@
 
                 const lista = shopList.filter(item => item.id_producto == id_producto);
 
-                if (lista.length > 0) {
+                if (lista.length > 0) { 
                     shopList = shopList.map(item => {
                         return {
                             ...item,
@@ -166,18 +167,22 @@
                     };
                     shopList = [item,...shopList];
                 }
-                console.log("handleShop -> shopList", shopList)
-                console.log('event', event)
+                // console.log("handleShop -> shopList", shopList)
+                // console.log('event', event)
 
                 localStorage.setItem(
                     'shopList',
                     JSON.stringify(shopList)
                 );
 
-                const body = {
-                    id_user : 1,
-                    lista_productos: shopList
-                }
+                
+                this.shopList = shopList;
+                // console.log("shopList", shopList)
+                // console.log('aqui',this.shopList)
+                // const body = {
+                //     id_user : 1,
+                //     lista_productos: shopList
+                // }
 
             },
             getCategorySelected(){
@@ -195,10 +200,14 @@
             }
         },
         created: function () {
-
+            console.log('se crea')
             let usuario  = localStorage.getItem('usuario');
             let shopList = localStorage.getItem('shopList');
             console.log("shopList", shopList);
+
+            shopList = JSON.parse(shopList);
+            console.log("shopList", shopList)
+            this.shopList = shopList;
 
             const self = this;
             // `this` hace referencia a la instancia vm
@@ -208,12 +217,9 @@
             })
             .then(function(myJson) {
                 let lista = myJson || [];
-                console.log("lista", lista)
-                console.log("lista", lista)
                 lista = lista.map(prod => {
                     return new Item(prod);
                 })
-                console.log('hola')
                 self.lista_productos = self.lista_productos || [];
                 self.lista_productos = [...self.lista_productos, ...lista];
             });

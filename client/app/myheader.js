@@ -25,13 +25,14 @@ Vue.component('myheader', {
                         </li>
                         <li class="nav-item"><a href="about.html" class="nav-link">Nosotros</a></li>
                         <li class="nav-item"><a href="blog.html" class="nav-link">Contactanos</a></li>
+
                         <template v-if=" userdb === null ">
-                        <li class="nav-item" ><a href="login.html" class="nav-link"><img src="images/avatar.png" width="18"></a></li>
-                        <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                            <li class="nav-item" ><a href="login.html" class="nav-link"><img src="images/avatar.png" width="18"></a></li>
+                            <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[{{ shopListLen }}]</a></li>
                         </template>
                         <template v-else>
-                        <li class="nav-item"><a href="#" class="nav-link">{{userdb.nombre}}</a></li>
-                        <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">{{userdb.nombre}}</a></li>
+                            <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[ {{ shopListLen }}]</a></li>
                         </template>
                         </ul>
                     </div>
@@ -39,12 +40,25 @@ Vue.component('myheader', {
             </nav>
         </div>
     `,
+    props: ['lista'],
     data(){
+        console.log("voy a probar esto ->> ", this.lista)
+
         return {
             categoria: [],
             userdb: {},
             categoryide: 0,
-            isLoggeed: false
+            isLoggeed: false,
+            shopList: this.lista || [],
+            shopListLen: this.lista ? this.lista.length : 0
+        }
+    },      
+    watch: { 
+        lista: function(newVal, oldVal) { // watch it
+            console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+            this.shopList = newVal;
+            console.log("this.shopList", this.shopList)
+            this.shopListLen = this.shopList.length
         }
     },
     methods:{
@@ -82,5 +96,12 @@ Vue.component('myheader', {
     created(){
         this.loadCategory()
         this.loadUserDate()
+        window.addEventListener('storage', function(event){
+            console.log('event -> ', event)
+            if (event.storageArea === localStorage) {
+                // It's local storage
+                console.log('hola')
+            }
+        }, false);
     }
 })
