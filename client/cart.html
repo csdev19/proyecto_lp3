@@ -44,7 +44,7 @@
 	<div id="cart">
 
 		<mytopline></mytopline>
-		<myheader></myheader>
+		<myheader  :lista="shopList"></myheader>
 
 
 		<div class="hero-wrap hero-bread" style="background-color: white ;padding: 0.1px">
@@ -177,8 +177,8 @@
 			items:[
 			],
 			lista_productos: [],
-			total: 0
-
+			total: 0,
+			shopList: []
 		},
 		methods:{
 			deleteitem: function(item_selected){
@@ -345,6 +345,7 @@
 			let shopList = localStorage.getItem('shopList');
 			shopList = JSON.parse(shopList);
 			console.log("shopList", shopList)
+			this.shopList = shopList || [];
 
 			// `this` hace referencia a la instancia vm
 			fetch('http://127.0.0.1:8000/api/getListarProducto')

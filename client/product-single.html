@@ -181,10 +181,18 @@
 						'shopList',
 						JSON.stringify(shopList)
 					);
+					this.shopList = shopList;
 				}
 			},
 			created(){
 				this.getProductbyid()
+				
+				
+			let usuario  = localStorage.getItem('usuario');
+			let shopList = localStorage.getItem('shopList');
+			shopList = JSON.parse(shopList);
+			console.log("shopList", shopList)
+			this.shopList = shopList || [];
 			}
 		})
 	</script>
