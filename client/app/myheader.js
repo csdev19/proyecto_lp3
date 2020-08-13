@@ -23,7 +23,7 @@ Vue.component('myheader', {
 
                         </div>
                         </li>
-                        <li class="nav-item"  v-if="showOptions.opt2"><a href="about.html" class="nav-link">Nosotros</a></li>
+                        <li class="nav-item"><a href="about.html" class="nav-link">Nosotros</a></li>
                         <li class="nav-item"><a href="blog.html" class="nav-link">Contactanos</a></li>
                         <template v-if=" userdb === null ">
                         <li class="nav-item" ><a href="login.html" class="nav-link"><img src="images/avatar.png" width="18"></a></li>
@@ -41,9 +41,36 @@ Vue.component('myheader', {
     `,
     data(){
         return {
-            showOptions: {
-                opt2: false
+            categoria: [],
+               userdb: {},
+               categoryide: 0
+        }
+    },
+    methods:{
+        loadCategory(){
+            fetch('http://127.0.0.1:8000/api/getListCategoria')
+					.then(response=>{
+						return response.json()
+					})
+					.then(data=>{
+                        this.categoria = data;
+					});
+        },
+        loadUserDate(){
+            let data = localStorage.getItem('user')
+            
+            if(data === null || data === "undefined"){
+                console.log('no hay logeo')
+                this.userdb = null
+            }else{
+                console.log('logeado')
+                let usuario = JSON.parse(data)
+                this.userdb.nombre = usuario.nomb_usuario
+                
             }
+        },
+        setCategoria(i){
+            localStorage.setItem('idcategoria',i);
         }
     },
     created(){
