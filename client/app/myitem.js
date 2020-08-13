@@ -8,7 +8,7 @@ Vue.component('myitem', {
     <div class="col-md-6 col-lg-3">
         
         <div class="product">
-            <a href="#" class="img-prod">
+            <a href="product-single.html" class="img-prod" @click='setIdProduct(itemid)'>
                 <img class="img-fluid" :src="img_producto" alt="Colorlib Template">
                 <span  v-if="itemStatus" class="status"> {{ itemPercent }} %</span>
                 <div class="overlay"></div>
@@ -63,9 +63,11 @@ Vue.component('myitem', {
             itemPercent       : this.data.itemPercent,
             itemNombre        : this.data.itemNombre,
             itemDiscount      : this.data.itemDiscount,
-            itemBaseAmount    : this.data.itemBaseAmount,
+            itemBaseAmount    : this.data.precio_producto,
             itemDiscountAmoun : this.data.itemDiscountAmoun,
             img_producto      : this.data.img_producto,
+            itemid            : this.data.id_producto,
+
             //
             showButtons       : [false, true, false]
         }
