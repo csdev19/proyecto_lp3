@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="client/css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/aos.css">
@@ -49,18 +49,56 @@
                         <span class="subheading">Productos especiales</span>
                         <h2 class="mb-4">Nuestros productos</h2>
                         <!-- <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p> -->
+						<a href="shop.html" class="btn btn-primary">Ver todos</a>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row">
-                    <template v-for="producto in lista_productos">
+                <template v-for="producto in lista_productos.slice(0,4)">
                         <myitem :data="producto" @shopevent="handleShop($event)"></myitem>
                     </template>
                 </div>
             </div>
         </section>
-        <!-- <mydealofday></mydealofday> -->
+        <section class="ftco-section ftco-category ftco-no-pt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6 order-md-last align-items-stretch d-flex">
+                            <div class="category-wrap-2  img align-self-stretch d-flex" style="background-image: url(images/logo3.png); background-size: auto; margin-top: 20px;">
+                                <div class="text text-center" style="margin-bottom: 400px;">
+                                    <h2>Categorías</h2>
+                                    <p>Nuestros productos se encuentran en estas categorías</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <div class="col-md-6">
+                                    <div class="category-wrap img mb-4 d-flex align-items-end" v-for="cat in list_cat.slice(0,2)" :style="'background-image: url(images/'+cat.foto_categoria+')'">
+                                        <div class="text px-3 py-1">
+                                            <h2 class="mb-0"><a href="productoCategoria.html" @click="setCategoria(cat.id_categoria)" >{{cat.nomb_categoria}}</a></h2>
+                                        </div>
+                                    </div>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                        <div class="category-wrap img mb-4 d-flex align-items-end" v-for="cat in list_cat.slice(2,4)" :style="'background-image: url(images/'+cat.foto_categoria+')'">
+                            <div class="text px-3 py-1">
+                                <h2 class="mb-0"><a href="productoCategoria.html" @click="setCategoria(cat.id_categoria)">{{cat.nomb_categoria}}</a></h2>
+                            </div>
+                        </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- <mydealofday></mydealofday> -->
         <hr>
         <!-- <mylogos></mylogos> -->
         <!-- <mynewletter></mynewletter> -->
@@ -84,12 +122,15 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
 
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
     new Vue({
         el: '#appvue',
         data: {
             lista_productos: [],
             items: [1,2,34,5,3],
+            list_cat: [],
             ayuda: null
         },
         methods: {
@@ -137,6 +178,38 @@
                     lista_productos: shopList
                 }
 
+                fetch(`${URL_BASE}insertProducto`, {
+                    "method": "POST",
+                    "headers": {
+                        "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
+                        "content-type": "application/json"
+                    },
+                    "body": JSON.stringify({
+                        ...body
+                    })
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('data', data)
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            },
+            getCategorySelected(){
+                fetch('http://127.0.0.1:8000/api/getListCategoria')
+                .then(response=>{
+                    return response.json()
+                })
+                .then(data=>{
+                    this.list_cat = data;
+                    console.log(this.list_cat)
+                });
+            },
+            setCategoria(i){
+                localStorage.setItem('idcategoria',i);
             }
         },
         created: function () {
@@ -160,6 +233,8 @@
                 self.lista_productos = self.lista_productos || [];
                 self.lista_productos = [...self.lista_productos, ...lista];
             });
+            this.getCategorySelected()
+            this.getCategoryPerId()
         }
     })
 
