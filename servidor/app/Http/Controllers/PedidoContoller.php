@@ -9,6 +9,28 @@ include '../app/helper/untils.php';
 
 class PedidoContoller extends Controller
 {  
+    function pagoListProducto(Request $req){
+
+        $obj = dd(json_decode($req->array_produ, true));
+
+        // $data = json_decode($req->array_produ->getContent(), true);
+
+        // echo "El valor de '{$obj}'";
+
+        // foreach ($obj AS $clave => $valor) {
+
+        //     echo "El valor de $clave es: $valor";
+
+        // }
+
+        return mySQLConsulta(
+            "SELECT SUM(precio_total_pedido) AS total
+               FROM pedido_usuario
+              WHERE id_usuario = '{$req->id_user}' 
+                AND flg_pedido = 'N'
+        ");
+    }
+    
     function getprecioTotal(Request $req){
         return mySQLConsulta(
             "SELECT SUM(precio_total_pedido) AS total
@@ -16,9 +38,9 @@ class PedidoContoller extends Controller
               WHERE id_usuario = '{$req->id_user}' 
                 AND flg_pedido = 'N'
         ");
-
-        
     }
+
+
     function insertProducto(Request $req){
        
        
@@ -33,7 +55,7 @@ class PedidoContoller extends Controller
         );
 
         if($isValidate == true){
-            return mySQLConsulta("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
+            return mySQLConsulta("CALL updatePedidoById('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
         }
 
         return mySQLConsulta("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
@@ -49,3 +71,5 @@ class PedidoContoller extends Controller
         return mySQLConsulta("SELECT * FROM  categoria where id_categoria= '{$req->id_categoria}'");
     }
 }
+
+
