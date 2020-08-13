@@ -47,7 +47,7 @@
 		<div class="hero-wrap hero-bread" style="background-color: white ;padding: 0.1px">
             <div class="container">
                 <div class="row justify-content-center mb-3 pb-3">
-                    <div class="col-md-12 heading-section text-center ftco-animate">
+                    <div class="col-md-12 heading-section text-center">
                         <h2 class="mb-4" style="font-size: 60px">Mis Compras</h2>
                     </div>
                 </div>  
@@ -57,7 +57,7 @@
 		<section class="ftco-section ftco-cart">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12 ftco-animate">
+					<div class="col-md-12">
 						<div class="cart-list">
 							<table class="table">
 								<thead class="thead-primary">
@@ -79,7 +79,10 @@
 
 											</td>
 											
-											<td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
+											<td class="image-prod">
+												<div class="img" style="background-image:url(images/product-3.jpg);">
+												</div>
+											</td>
 											
 											<td class="product-name">
 												<h3>{{item.nombre}}</h3>
@@ -107,7 +110,7 @@
 											<td class="total" v-text="price(index)"></td>
 									</tr><!-- END TR-->
 
-								</div>
+								<!-- </div> -->
 
 								</tbody>
 							</table>
@@ -144,7 +147,7 @@
   
 
   <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+  <!-- <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> -->
 
 </div>
 
@@ -174,6 +177,7 @@
 				{nombre:'Harina Blanca Flor',description:'asdasdsa',price:1.32,quantiti:4},
 				{nombre:'Mantiquella Sello de Oro',description:'asdasdsa',price:23.32,quantiti:5}
 			],
+			lista: []
 			total: 0
 
 		},
@@ -196,7 +200,27 @@
 				}
 				return this.total.toFixed(2);
 			}
-		}					
+		},        
+		created: function () {
+			let usuario  = localStorage.getItem('usuario');
+			let shopList = localStorage.getItem('shopList');
+		
+			const self = this;
+			// `this` hace referencia a la instancia vm
+			fetch('http://127.0.0.1:8000/api/getListarProducto')
+			.then((response) => {
+				return response.json();
+			})
+			.then((myJson) => {
+				let lista = myJson || [];
+				console.log("lista", lista)
+				lista = lista.map(prod => {
+					return new Item(prod);
+				})
+				this.lista = [...this.lista, ...lista];
+				console.log('this.lista', this.lista);
+			});
+		}
 	})
 
 	</script>
