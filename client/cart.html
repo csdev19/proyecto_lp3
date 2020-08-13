@@ -21,8 +21,9 @@
     <link rel="stylesheet" href="css/ionicons.min.css">
 
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
+	<link rel="stylesheet" href="css/jquery.timepicker.css">
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
@@ -30,6 +31,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+    <script src="app/utils/models.js"></script>
 
 	<script src="app/mytopline.js"></script>
 	<script src="app/myheader.js"></script>
@@ -75,32 +77,34 @@
 									<tr class="text-center" v-for="(item,index) of items">
 										
 											<td class="product-remove" >
-												<a v-on:click="deleteitem(index)" class="remove-button"><span class="ion-ios-close"></span></a>
+												<a v-on:click="deleteitem(item)" class="remove-button"><span class="ion-ios-close"></span></a>
 
 											</td>
 											
 											<td class="image-prod">
-												<div class="img" style="background-image:url(images/product-3.jpg);">
+												<div class="img" :style="{ backgroundImage: `url(${item.img_producto})` }">
+													
+
 												</div>
 											</td>
 											
 											<td class="product-name">
-												<h3>{{item.nombre}}</h3>
-												<p>{{item.description}}</p>
+												<h3>{{item.nomb_producto}}</h3>
+												<p>{{item.desc_producto}}</p>
 											</td>
 											
-											<td class="price">S/ {{item.price}}</td>
+											<td class="price">S/ {{item.precio_producto}}</td>
 											
 											<td class="quantity">
 												<div class="input-group mb-3">
 													<span class="input-group-btn mr-2">
-														<button type="button" class="quantity-left-minus btn"  data-type="minus" v-on:click="item.quantiti--" :disabled="disabled(index)">
+														<button type="button" class="quantity-left-minus btn"  data-type="minus" v-on:click="substractItem(item)" :disabled="disabled(index)">
 															<i class="ion-ios-remove" style="color: grey"></i>
 														</button>
 													</span>
-													<input type="text" name="quantity" class="quantity form-control input-number" v-model="item.quantiti" min="1" max="100">
+													<input type="text" name="quantity" class="quantity form-control input-number" v-model="item.nro_productos" min="1" max="100">
 													<span class="input-group-btn ml-2">
-														<button type="button" class="quantity-right-plus btn" data-type="plus" v-on:click="item.quantiti++">
+														<button type="button" class="quantity-right-plus btn" data-type="plus" v-on:click="addItem(item)">
 															<i class="ion-ios-add" style="color: grey"></i>
 														</button>
 													</span>
@@ -139,19 +143,14 @@
 			</div>
 		</section>
 
-		
-
 		<myfooter></myfooter>
-    
-	
-  
 
   <!-- loader -->
   <!-- <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> -->
 
 </div>
 
-  <script src="js/jquery.min.js"></script>
+  	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -165,60 +164,159 @@
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
-  	<script src="js/main2.js"></script>
-
+	<script src="js/main2.js"></script>
+	  
   <script>
 	new Vue({
 		el: '#cart',
 		data:{
 			contador: 0,
 			items:[
-				{nombre:'Leche Gloria',description:'asdasdsa',price:2.32,quantiti:2},
-				{nombre:'Harina Blanca Flor',description:'asdasdsa',price:1.32,quantiti:4},
-				{nombre:'Mantiquella Sello de Oro',description:'asdasdsa',price:23.32,quantiti:5}
 			],
-			lista: []
+			lista_productos: [],
 			total: 0
 
 		},
 		methods:{
-			deleteitem: function(index){
-            	this.items.splice(index,1);
+			deleteitem: function(item_selected){
+				this.items = this.items.filter(item => item.id_producto != item_selected.id_producto);
+
+				console.log("this.items", this.items)
+
+				// const item = {
+				//         id_producto,
+				//         nro_productos: 1
+				//     };
+				let shopList = this.items.map(item => {
+					return {
+						id_producto: item.id_producto,
+						nro_productos: item.nro_productos
+					}
+				});
+				console.log("shopList", shopList)
+				shopList = shopList || [];
+
+				localStorage.setItem(
+					'shopList',
+					JSON.stringify(shopList)
+				);
        		 },
 			disabled: function(index){
-				return this.items[index].quantiti === 1;
+				return this.items[index].nro_productos === 1;
 			},
 			price: function(index){
-				return (this.items[index].price * this.items[index].quantiti).toFixed(2);
+				if(index == 0) {
+					// console.log("this.items[index].nro_productos", this.items[index].nro_productos)
+					// console.log("this.items[index].precio_producto", this.items[index].precio_producto)
+				}
+				return (this.items[index].precio_producto * this.items[index].nro_productos).toFixed(2);
+			},
+			addItem: function(item_selected) {
+
+				console.log("this.items", this.items)
+
+				this.items = this.items.map(item => {
+					console.log('item.nro_productos', item.nro_productos)
+					return {
+						...item,
+						nro_productos: item_selected.id_producto == item.id_producto ? item.nro_productos + 1 : item.nro_productos
+					};
+				})
+				console.log("this.items", this.items)
+
+				// const item = {
+                //         id_producto,
+                //         nro_productos: 1
+                //     };
+				let shopList = this.items.map(item => {
+					return {
+						id_producto: item.id_producto,
+						nro_productos: item.nro_productos
+					}
+				});
+                console.log("shopList", shopList)
+				shopList = shopList || [];
+
+                localStorage.setItem(
+                    'shopList',
+                    JSON.stringify(shopList)
+                );
+			},
+			substractItem: function(item_selected) {
+				console.log("this.items", this.items)
+				
+				this.items = this.items.map(item => {
+					return {
+						...item,
+						nro_productos: item_selected.id_producto == item.id_producto ? item.nro_productos - 1 : item.nro_productos
+					}
+				})
+				console.log("this.items", this.items)
+
+				// const item = {
+                //         id_producto,
+                //         nro_productos: 1
+                //     };
+				const shopList = this.items.map(item => {
+					return {
+						id_producto: item.id_producto,
+						nro_productos: item.nro_productos
+					}
+				});
+                console.log("shopList", shopList)
+				shopList = shopList || [];
+
+                localStorage.setItem(
+                    'shopList',
+                    JSON.stringify(shopList)
+                );
+
 			}
 		},
 		computed:{
 			totalprice: function(){
 				this.total = 0;
 				for(item of this.items){
-					this.total += item.quantiti * item.price
+					this.total += item.nro_productos * item.precio_producto
 				}
 				return this.total.toFixed(2);
 			}
 		},        
 		created: function () {
+			console.log('1')
 			let usuario  = localStorage.getItem('usuario');
 			let shopList = localStorage.getItem('shopList');
-		
-			const self = this;
+			shopList = JSON.parse(shopList);
+			console.log("shopList", shopList)
+
 			// `this` hace referencia a la instancia vm
 			fetch('http://127.0.0.1:8000/api/getListarProducto')
 			.then((response) => {
+            console.log("response", response)
 				return response.json();
 			})
 			.then((myJson) => {
+				console.log('2')
 				let lista = myJson || [];
 				console.log("lista", lista)
 				lista = lista.map(prod => {
 					return new Item(prod);
 				})
-				this.lista = [...this.lista, ...lista];
-				console.log('this.lista', this.lista);
+				this.lista_productos = [...this.lista_productos, ...lista];
+				console.log('this.lista', this.lista_productos[0]);
+
+				let items = shopList.map(item => {
+					const [producto] = this.lista_productos
+						.filter(producto => producto.id_producto == item.id_producto)
+					return {
+						...producto,
+						...item
+					}
+				});
+
+				this.items = items;
+				console.log('items', items);
+
 			});
 		}
 	})
