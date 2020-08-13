@@ -134,7 +134,8 @@
             ayuda: null
         },
         methods: {
-            handleShop(event) {
+            handleShop: function(event) {
+                console.log('puta no se')
                 let shopList = localStorage.getItem('shopList');
                 console.log("handleShop -> shopList", shopList)
                 if(!shopList) {
@@ -178,25 +179,6 @@
                     lista_productos: shopList
                 }
 
-                fetch(`${URL_BASE}insertProducto`, {
-                    "method": "POST",
-                    "headers": {
-                        "cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
-                        "content-type": "application/json"
-                    },
-                    "body": JSON.stringify({
-                        ...body
-                    })
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('data', data)
-                })
-                .catch(err => {
-                    console.error(err);
-                });
             },
             getCategorySelected(){
                 fetch('http://127.0.0.1:8000/api/getListCategoria')
@@ -227,14 +209,16 @@
             .then(function(myJson) {
                 let lista = myJson || [];
                 console.log("lista", lista)
+                console.log("lista", lista)
                 lista = lista.map(prod => {
                     return new Item(prod);
                 })
+                console.log('hola')
                 self.lista_productos = self.lista_productos || [];
                 self.lista_productos = [...self.lista_productos, ...lista];
             });
             this.getCategorySelected()
-            this.getCategoryPerId()
+            // this.getCategoryPerId()
         }
     })
 

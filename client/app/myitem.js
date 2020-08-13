@@ -20,7 +20,7 @@ Vue.component('myitem', {
                 <div class="d-flex">
                     <div class="pricing">
                         <p class="price">
-                            <span class="mr-2 price-sale">S/. {{itemBaseAmount}}</span>
+                            <span class="mr-2 price-sale">S/. {{itemBaseAmount}} </span>
                         </p>
                     </div>
                 </div>
@@ -32,7 +32,10 @@ Vue.component('myitem', {
                             </a>
                         </template>
     					<template v-if="showButtons[1]">
-                            <a class="buy-now d-flex justify-content-center align-items-center mx-1" v-on:click="handleShop()">
+                            <a 
+                                class="buy-now d-flex justify-content-center align-items-center mx-1"
+                                v-on:click="handleShop()"
+                            >
                             <span><i class="ion-ios-cart"></i></span>
                             </a>
                         </template>
@@ -42,16 +45,13 @@ Vue.component('myitem', {
                             </a>
                         </template>
                     </div>
-                    
+                </div>
+
             </div>
 
         </div>
 
     </div>
-
-
-
-
     `,
     props: ['data'],
     data() {
@@ -69,17 +69,24 @@ Vue.component('myitem', {
             showButtons       : [false, true, false]
         }
     },
-    methods: {
-        handleShop: function() {
-			let shopList = localStorage.getItem('shopList');
-            // $emit('change', $event.target.checked)
-            this.$emit('shopevent', this.data)
-        }
-    },
+    // methods: {
+    //     handleShop: function() {
+    //         console.log('entra')
+	// 		let shopList = localStorage.getItem('shopList');
+    //         // $emit('change', $event.target.checked)
+    //         // this.$emit('shopevent', this.data)
+    //     },
+    // },
     methods:{
         setIdProduct(i){
             localStorage.setItem('idProduct',i);
-        }
+        },
+        handleShop: function() {
+            console.log('entra')
+            let shopList = localStorage.getItem('shopList');
+            // $emit('change', $event.target.checked)
+            this.$emit('shopevent', this.data)
+        },
     }
 
 })
