@@ -4,7 +4,9 @@ Vue.component('loginform', {
     template:
     `
         <div>
-
+            <button 
+            v-on:click="prueba()"
+            > prueba</button>
             <div id="formulario1" style="display: block">
                 <form  action="index.html" class="needs-validation" novalidate>
 
@@ -77,16 +79,12 @@ Vue.component('loginform', {
                     'usuario', 
                     JSON.stringify(info)
                 )
-                window.location.replace("file:///C:/xampp/htdocs/proyecto_lp3/client/index.html");
-
+                const actual = window.location.href;
+                const indice = actual.lastIndexOf('/');
+                const nuevo = actual.substr(0, indice);
+                const despues = `${nuevo}/index.html`
+                window.location.replace(despues);
             })
-            /**
-            {
-                "status": "1",
-                "msj": "Sin resultados."
-            }
-             * 
-             */
         }
     }
 })
