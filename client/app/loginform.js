@@ -62,8 +62,6 @@ Vue.component('loginform', {
     },
     methods: {
         handleLogin: function() {
-            console.log("userInput", this.userInput);
-            console.log("passwordInput", this.passwordInput);
             const obj = {
                 user: this.userInput,
                 password: this.passwordInput
@@ -71,9 +69,7 @@ Vue.component('loginform', {
 
             loginUser(obj)
             .then(({data}) => {
-                console.log('data', data)
                 
-                console.log('data', data)
                 const info = (data.status == '1') ? '' : data;
                 localStorage.setItem(
                     'usuario', 

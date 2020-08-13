@@ -71,7 +71,6 @@ Vue.component('myitem', {
     },
     // methods: {
     //     handleShop: function() {
-    //         console.log('entra')
 	// 		let shopList = localStorage.getItem('shopList');
     //         // $emit('change', $event.target.checked)
     //         // this.$emit('shopevent', this.data)
@@ -82,7 +81,6 @@ Vue.component('myitem', {
             localStorage.setItem('idProduct',i);
         },
         handleShop: function() {
-            console.log('entra')
             let shopList = localStorage.getItem('shopList');
             // $emit('change', $event.target.checked)
             this.$emit('shopevent', this.data)

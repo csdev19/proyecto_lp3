@@ -42,23 +42,21 @@ Vue.component('myheader', {
     `,
     props: ['lista'],
     data(){
-        console.log("voy a probar esto ->> ", this.lista)
 
+        console.log('this.lista', this.lista)
         return {
             categoria: [],
             userdb: {},
             categoryide: 0,
             isLoggeed: false,
             shopList: this.lista || [],
-            shopListLen: this.lista ? this.lista.length : 0
+            shopListLen: this.lista ? this.lista.reduce((acc, obj) => { return acc + obj.nro_productos; }, 0) : 0
         }
     },      
     watch: { 
         lista: function(newVal, oldVal) { // watch it
-            console.log('Prop changed: ', newVal, ' | was: ', oldVal)
             this.shopList = newVal;
-            console.log("this.shopList", this.shopList)
-            this.shopListLen = this.shopList.length
+            this.shopListLen = this.lista.reduce((acc, obj) => { return acc + obj.nro_productos; }, 0)
         }
     },
     methods:{
@@ -73,17 +71,12 @@ Vue.component('myheader', {
         },
         loadUserDate(){
             let data = localStorage.getItem('usuario')
-            console.log("loadUserDate -> data", data)
             
             if(data === null || data === "undefined"){
-                console.log('no hay logeo')
                 this.userdb = null
             }else{
-                console.log('logeado')
                 let usuario = JSON.parse(data)
-                console.log("loadUserDate -> usuario", usuario)
                 usuario = usuario[0]
-                console.log("loadUserDate -> usuario", usuario)
 
                 this.userdb.nombre = usuario.nomb_usuario
                 
@@ -96,12 +89,5 @@ Vue.component('myheader', {
     created(){
         this.loadCategory()
         this.loadUserDate()
-        window.addEventListener('storage', function(event){
-            console.log('event -> ', event)
-            if (event.storageArea === localStorage) {
-                // It's local storage
-                console.log('hola')
-            }
-        }, false);
     }
 })

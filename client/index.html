@@ -137,14 +137,11 @@
         methods: {
             handleShop: function(event) {
                 let shopList = localStorage.getItem('shopList');
-                console.log("handleShop -> shopList", shopList)
                 if(!shopList) {
                     shopList = [];
                 } else {
-                    console.log('aqui')
                     shopList = (typeof shopList == 'string') ? JSON.parse(shopList) : shopList;
                 }
-                console.log("handleShop -> shopList", shopList)
                 const { id_producto } = event;
                 const newProducto = event;
 
@@ -167,8 +164,6 @@
                     };
                     shopList = [item,...shopList];
                 }
-                // console.log("handleShop -> shopList", shopList)
-                // console.log('event', event)
 
                 localStorage.setItem(
                     'shopList',
@@ -177,8 +172,6 @@
 
                 
                 this.shopList = shopList;
-                // console.log("shopList", shopList)
-                // console.log('aqui',this.shopList)
                 // const body = {
                 //     id_user : 1,
                 //     lista_productos: shopList
@@ -192,7 +185,6 @@
                 })
                 .then(data=>{
                     this.list_cat = data;
-                    console.log(this.list_cat)
                 });
             },
             setCategoria(i){
@@ -200,13 +192,10 @@
             }
         },
         created: function () {
-            console.log('se crea')
             let usuario  = localStorage.getItem('usuario');
             let shopList = localStorage.getItem('shopList');
-            console.log("shopList", shopList);
 
             shopList = JSON.parse(shopList);
-            console.log("shopList", shopList)
             this.shopList = shopList;
 
             const self = this;
