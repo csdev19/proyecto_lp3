@@ -18,9 +18,10 @@ Route::get('getCategoriaSelect', 'CategoriaContoller@getCategoriaSelect'); // CA
 Route::get('getListCategoria'  , 'CategoriaContoller@getListCategoria');   // LISTA DE CATEGORIAS 
 
 //Pedidos
-Route::get('getprecioTotal'    , 'PedidoContoller@getprecioTotal'); // CATEGORIA SELECCIONADA 
-Route::get('getInsertProducto'  , 'PedidoContoller@getInsertProducto');   // LISTA DE CATEGORIAS 
-// Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
+Route::get('getprecioTotal'    , 'PedidoContoller@getprecioTotal');   // CATEGORIA SELECCIONADA 
+Route::post('insertProducto'   , 'PedidoContoller@insertProducto');   // LISTA DE CATEGORIAS 
+Route::post('pagoListProducto'  , 'PedidoContoller@pagoListProducto'); // PAGAR LISTA DE CATEGORIAS
+
 // Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
 // Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 
 // Route::get('getListCategoria'  , 'PedidoContoller@getListCategoria');   // LISTA DE CATEGORIAS 

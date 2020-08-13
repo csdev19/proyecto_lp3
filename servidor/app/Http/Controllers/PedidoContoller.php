@@ -9,6 +9,28 @@ include '../app/helper/untils.php';
 
 class PedidoContoller extends Controller
 {  
+    function pagoListProducto(Request $req){
+
+        $obj = dd(json_decode($req->array_produ, true));
+
+        // $data = json_decode($req->array_produ->getContent(), true);
+
+        // echo "El valor de '{$obj}'";
+
+        // foreach ($obj AS $clave => $valor) {
+
+        //     echo "El valor de $clave es: $valor";
+
+        // }
+
+        return mySQLConsulta(
+            "SELECT SUM(precio_total_pedido) AS total
+               FROM pedido_usuario
+              WHERE id_usuario = '{$req->id_user}' 
+                AND flg_pedido = 'N'
+        ");
+    }
+    
     function getprecioTotal(Request $req){
         return mySQLConsulta(
             "SELECT SUM(precio_total_pedido) AS total
@@ -16,10 +38,12 @@ class PedidoContoller extends Controller
               WHERE id_usuario = '{$req->id_user}' 
                 AND flg_pedido = 'N'
         ");
-
-        
     }
-    function getInsertProducto(Request $req){
+
+
+    function insertProducto(Request $req){
+       
+       
         $isValidate = validateConsuta(
             "SELECT TRUE AS result
             FROM pedido_usuario AS pu,
@@ -27,13 +51,14 @@ class PedidoContoller extends Controller
            WHERE pu.id_usuario   = '{$req->id_user}'
              AND pap.id_producto = '{$req->id_producto}'  
              AND pu.id_pedidoUsuario = pap.id_pedidoUsuario 
-             AND pu.flg_pedido   = 'N'
-        ");
+             AND pu.flg_pedido   = 'N'"
+        );
 
         if($isValidate == true){
-            echo "existe";
+            return mySQLConsulta("CALL updatePedidoById('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
         }
 
+        return mySQLConsulta("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
 
     }
 
@@ -46,3 +71,5 @@ class PedidoContoller extends Controller
         return mySQLConsulta("SELECT * FROM  categoria where id_categoria= '{$req->id_categoria}'");
     }
 }
+
+
