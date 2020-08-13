@@ -149,6 +149,13 @@ Vue.component('registerform', {
                             'usuario', 
                             JSON.stringify(info)
                         )
+                        // Simulate an HTTP redirect:
+                        // window.location.replace("file:///C:/xampp/htdocs/proyecto_lp3/client/index.html");
+                        const actual = window.location.href;
+                        const indice = actual.lastIndexOf('/');
+                        const nuevo = actual.substr(0, indice);
+                        const despues = `${nuevo}/index.html`
+                        window.location.replace(despues);
                     })
                 }
             })

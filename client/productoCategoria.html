@@ -65,7 +65,8 @@
 			<div class="container">
 				<div class="row">
 					<template v-for="producto in lista_productos">
-						<myitem :data="producto"></myitem>
+						<!-- <myitem :data="producto"></myitem> -->
+                        <myitem :data="producto" @shopevent="handleShop($event)"></myitem>
 					</template>
 				</div>
 			</div>
@@ -111,9 +112,10 @@
                             'id_categoria': datacategoryid
 						}
 					}).then(response=>{
-						console.log('entre aqui')
-						this.lista_productos = response.data
-						console.log(this.lista_productos)
+						const lista = response.data.map(prod => {
+							return new Item(prod);
+						})
+						this.lista_productos = lista;
 				})
 			},
 			getCategorybyid(){
@@ -127,7 +129,53 @@
 						this.categoria = response.data
 						console.log(this.categoria)
 				})
-			}
+			},
+			handleShop(event) {
+				console.log('hola')
+                let shopList = localStorage.getItem('shopList');
+                console.log("handleShop -> shopList", shopList)
+                if(!shopList) {
+                    shopList = [];
+                } else {
+                    shopList = (typeof shopList == 'string') ? JSON.parse(shopList) : shopList;
+                }
+                console.log("handleShop -> shopList", shopList)
+                const { id_producto } = event;
+                const newProducto = event;
+
+                const lista = shopList.filter(item => item.id_producto == id_producto);
+
+                if (lista.length > 0) {
+                    shopList = shopList.map(item => {
+                        return {
+                            ...item,
+                            nro_productos: (item.id_producto == id_producto) ?
+                                (item.nro_productos) ?
+                                    (item.nro_productos + 1) : 0
+                                : item.nro_productos
+                        }
+                    });
+                } else {
+                    const item = {
+                        id_producto,
+                        nro_productos: 1
+                    };
+                    shopList = [item,...shopList];
+                }
+                console.log("handleShop -> shopList", shopList)
+                console.log('event', event)
+
+                localStorage.setItem(
+                    'shopList',
+                    JSON.stringify(shopList)
+                );
+
+                // const body = {
+                //     id_user : 1,
+                //     lista_productos: shopList
+                // }
+
+            }
 		  },
 			created: function () {
 				this.getProductsbyid()

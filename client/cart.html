@@ -36,7 +36,8 @@
 	<script src="app/mytopline.js"></script>
 	<script src="app/myheader.js"></script>
 	<script src="app/myfooter.js" ></script>
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
   </head>
   <body class="goto-here">
 
@@ -102,7 +103,7 @@
 															<i class="ion-ios-remove" style="color: grey"></i>
 														</button>
 													</span>
-													<input type="text" name="quantity" class="quantity form-control input-number" v-model="item.nro_productos" min="1" max="100">
+													<input disabled type="text" name="quantity" class="quantity form-control input-number" v-model="item.nro_productos" min="1" max="100">
 													<span class="input-group-btn ml-2">
 														<button type="button" class="quantity-right-plus btn" data-type="plus" v-on:click="addItem(item)">
 															<i class="ion-ios-add" style="color: grey"></i>
@@ -136,7 +137,7 @@
                                 <span id="total" v-text="`S/ `+totalprice"></span>
                             </p>
                         </div>
-                        <p><a href="caja" class="btn btn-primary py-3 px-4" id="boton">Proceder a pagar</a></p>
+                        <p><a  v-on:click="pagar()" class="btn btn-primary py-3 px-4" id="boton">Proceder a pagar</a></p>
                     </div>
 				</div>
 				
@@ -165,7 +166,9 @@
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/main2.js"></script>
-	  
+	<script src="sweetalert2.all.min.js"></script>
+	<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
   <script>
 	new Vue({
 		el: '#cart',
@@ -271,6 +274,60 @@
                     JSON.stringify(shopList)
                 );
 
+			},
+			pagar: function() {
+				// console.log('this.items', this.items)
+				let usuario  = localStorage.getItem('usuario');
+
+				usuario = JSON.parse(usuario)
+                console.log("usuario", usuario)
+				usuario = usuario[0];
+                console.log("usuario", usuario)
+
+				const items_pago = this.items.map(item => {
+					return {
+                        id_producto: item.id_producto,
+						cant_producto: item.nro_productos
+					}
+				})
+				console.log("items_pago", items_pago)
+				
+				const objeto_pago = {
+					id_persona: usuario.id_usuario,
+					array_produ: items_pago
+				}
+				console.log('objeto_pago' ,objeto_pago)
+				console.log('objeto_pago' , JSON.stringify(objeto_pago))
+
+
+				fetch("http://127.0.0.1:8000/api/pagoListProducto", {
+					"method": "POST",
+					"headers": {
+						"cookie": "PHPSESSID=csko4h9e7olag8kr7mgr4tsv55",
+						"content-type": "application/json"
+					},
+					"body": JSON.stringify({
+						...objeto_pago
+					})
+				})
+				.then(response => {
+				console.log(response);
+					return response.json();
+				})
+				.then(data => {
+					console.log('data', data)
+					Swal.fire({
+						title: 'El pago fue realizado!!',
+						icon: 'success',
+						confirmButtonText: 'Cool'
+					})
+
+					localStorage.setItem('shopList', '[]')
+					this.items = []
+				})
+				.catch(err => {
+				console.error(err);
+				});
 			}
 		},
 		computed:{

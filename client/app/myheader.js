@@ -42,8 +42,9 @@ Vue.component('myheader', {
     data(){
         return {
             categoria: [],
-               userdb: {},
-               categoryide: 0
+            userdb: {},
+            categoryide: 0,
+            isLoggeed: false
         }
     },
     methods:{
@@ -57,7 +58,8 @@ Vue.component('myheader', {
 					});
         },
         loadUserDate(){
-            let data = localStorage.getItem('user')
+            let data = localStorage.getItem('usuario')
+            console.log("loadUserDate -> data", data)
             
             if(data === null || data === "undefined"){
                 console.log('no hay logeo')
@@ -65,6 +67,10 @@ Vue.component('myheader', {
             }else{
                 console.log('logeado')
                 let usuario = JSON.parse(data)
+                console.log("loadUserDate -> usuario", usuario)
+                usuario = usuario[0]
+                console.log("loadUserDate -> usuario", usuario)
+
                 this.userdb.nombre = usuario.nomb_usuario
                 
             }
