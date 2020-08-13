@@ -8,49 +8,53 @@ use Illuminate\Http\Request;
 include '../app/helper/untils.php';
 
 class PedidoContoller extends Controller
-{  
+{
     function pagoListProducto(Request $req){
 
-        $obj = dd(json_decode($req->array_produ, true));
+        // $obj = dd(json_decode($req->array_produ, true));
 
         // $data = json_decode($req->array_produ->getContent(), true);
 
         // echo "El valor de '{$obj}'";
+        // dd($req->array_produ);
+        // dd($req->array_produ);
 
-        // foreach ($obj AS $clave => $valor) {
+        foreach ($req->array_produ AS $clave => $valor) {
+            dd($valor);
+            // dd($clave);
 
-        //     echo "El valor de $clave es: $valor";
+            echo "El valor de $clave es: $valor";
 
-        // }
+        }
 
         return mySQLConsulta(
             "SELECT SUM(precio_total_pedido) AS total
                FROM pedido_usuario
-              WHERE id_usuario = '{$req->id_user}' 
+              WHERE id_usuario = '{$req->id_user}'
                 AND flg_pedido = 'N'
         ");
     }
-    
+
     function getprecioTotal(Request $req){
         return mySQLConsulta(
             "SELECT SUM(precio_total_pedido) AS total
                FROM pedido_usuario
-              WHERE id_usuario = '{$req->id_user}' 
+              WHERE id_usuario = '{$req->id_user}'
                 AND flg_pedido = 'N'
         ");
     }
 
 
     function insertProducto(Request $req){
-       
-       
+
+
         $isValidate = validateConsuta(
             "SELECT TRUE AS result
             FROM pedido_usuario AS pu,
                  pedidousuario_and_producto AS pap
            WHERE pu.id_usuario   = '{$req->id_user}'
-             AND pap.id_producto = '{$req->id_producto}'  
-             AND pu.id_pedidoUsuario = pap.id_pedidoUsuario 
+             AND pap.id_producto = '{$req->id_producto}'
+             AND pu.id_pedidoUsuario = pap.id_pedidoUsuario
              AND pu.flg_pedido   = 'N'"
         );
 
@@ -67,7 +71,7 @@ class PedidoContoller extends Controller
         if($isValidate){
             return $isValidate;
         }
-        
+
         return mySQLConsulta("SELECT * FROM  categoria where id_categoria= '{$req->id_categoria}'");
     }
 }
