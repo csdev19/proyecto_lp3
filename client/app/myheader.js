@@ -1,5 +1,6 @@
 
 
+
 Vue.component('myheader', {
     template: 
     `
@@ -18,7 +19,8 @@ Vue.component('myheader', {
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">PRODUCTOS</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="shop.html" v-for="cat in categoria">{{cat.nomb_categoria}}</a>
+                            <a class="dropdown-item" href="productoCategoria.html" @click='setCategoria(cat.id_categoria)' v-for="cat in categoria">{{cat.nomb_categoria}}</a>
+
                         </div>
                         </li>
                         <li class="nav-item"><a href="about.html" class="nav-link">Nosotros</a></li>
@@ -40,7 +42,8 @@ Vue.component('myheader', {
     data(){
         return {
             categoria: [],
-               userdb: {}        
+               userdb: {},
+               categoryide: 0
         }
     },
     methods:{
@@ -50,7 +53,7 @@ Vue.component('myheader', {
 						return response.json()
 					})
 					.then(data=>{
-						this.categoria = data;
+                        this.categoria = data;
 					});
         },
         loadUserDate(){
@@ -65,6 +68,9 @@ Vue.component('myheader', {
                 this.userdb.nombre = usuario.nomb_usuario
                 
             }
+        },
+        setCategoria(i){
+            localStorage.setItem('idcategoria',i);
         }
     },
     created(){

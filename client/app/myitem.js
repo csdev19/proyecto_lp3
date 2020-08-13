@@ -9,7 +9,7 @@ Vue.component('myitem', {
     <div class="col-md-6 col-lg-3 ">
         
         <div class="product">
-            <a href="#" class="img-prod"><img class="img-fluid" :src="img_producto" alt="Colorlib Template">
+            <a href="product-single.html" class="img-prod" @click='setIdProduct(itemid)'><img class="img-fluid" :src="img_producto" alt="Colorlib Template">
                 <!--<span  v-if="itemStatus" class="status"> {{ itemPercent }} %</span>-->
                 <div class="overlay"></div>
             </a>
@@ -68,13 +68,20 @@ Vue.component('myitem', {
         return {
             // itemStatus: this.data.itemStatus,
             // itemPercent: this.data.itemPercent,
+            itemid: this.data.id_producto,
             itemNombre: this.data.nomb_producto,
             // itemDiscount: this.data.itemDiscount,
             itemBaseAmount: this.data.precio_producto,
             // itemDiscountAmoun: this.data.itemDiscountAmoun,
             img_producto : this.data.img_producto
         }
+    },
+    methods:{
+        setIdProduct(i){
+            localStorage.setItem('idProduct',i);
+        }
     }
+
 })
 
 

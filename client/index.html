@@ -55,7 +55,7 @@
 						<span class="subheading">Productos especiales</span>
 						<h2 class="mb-4">Nuestros productos</h2>
 						<!-- <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p> -->
-						<a href="#" class="btn btn-primary">Ver todos</a>
+						<a href="shop.html" class="btn btn-primary">Ver todos</a>
 					</div>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 								<div class="col-md-6">
 										<div class="category-wrap img mb-4 d-flex align-items-end" v-for="cat in list_cat.slice(0,2)" :style="'background-image: url(images/'+cat.foto_categoria+')'">
 											<div class="text px-3 py-1">
-												<h2 class="mb-0"><a href="shop.html">{{cat.nomb_categoria}}</a></h2>
+												<h2 class="mb-0"><a href="productoCategoria.html" @click="setCategoria(cat.id_categoria)" >{{cat.nomb_categoria}}</a></h2>
 											</div>
 										</div>
 								</div>
@@ -99,7 +99,7 @@
                     <div class="col-md-4">
 							<div class="category-wrap img mb-4 d-flex align-items-end" v-for="cat in list_cat.slice(2,4)" :style="'background-image: url(images/'+cat.foto_categoria+')'">
 								<div class="text px-3 py-1">
-									<h2 class="mb-0"><a href="shop.html">{{cat.nomb_categoria}}</a></h2>
+									<h2 class="mb-0"><a href="productoCategoria.html" @click="setCategoria(cat.id_categoria)">{{cat.nomb_categoria}}</a></h2>
 								</div>
 							</div>
                     </div>
@@ -152,15 +152,9 @@
 						console.log(this.list_cat)
 					});
 				},
-				getCategoryPerId(){
-					axios.get('http://127.0.0.1:8000/api/getCategoriaSelect',{
-						params:{
-							'id_categoria': 1
-						}
-					}).then(response=>{
-						console.log(response)
-					})
-				}
+				setCategoria(i){
+            		localStorage.setItem('idcategoria',i);
+        		}
 			},
 			created: function () {
 				console.log('se llama?', this.lista_productos)
