@@ -49,9 +49,6 @@ Vue.component('myfooter', {
                 <div class="row">
                     <div class="col-md-12 text-center">
 
-                        <p>
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Página web hecha por </i><a href="#" target="_blank" style="color: #F08080;">ANFAVA</a>
-                        </p>
                     </div>
                 </div>
             </div>

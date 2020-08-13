@@ -6,31 +6,21 @@ Vue.component('myitem', {
     `
 
     <div class="col-md-6 col-lg-3 ">
+        
         <div class="product">
             <a href="#" class="img-prod">
                 <img class="img-fluid" :src="img_producto" alt="Colorlib Template">
                 <span  v-if="itemStatus" class="status"> {{ itemPercent }} %</span>
                 <div class="overlay"></div>
             </a>
+
             <div class="text py-3 pb-4 px-3 text-center">
                 <h3><a href="#">{{ itemNombre }}</a></h3>
+
                 <div class="d-flex">
-                    <div  class="pricing">
+                    <div class="pricing">
                         <p class="price">
-                            <span 
-                                v-if="itemDiscount"
-                                class="mr-2 price-dc"
-                                v-bind:class="{ 'price-dc': itemDiscount }"
-                            >
-                                $ {{ itemBaseAmount }}
-                            </span>
-                            <span
-                                v-if="itemDiscount"
-                                class="price-sale"
-                            >
-                                $ {{ itemBaseAmount - itemDiscountAmoun }}
-                            </span>
-                            <p v-if="!itemDiscount" class="price"><span>$ {{ itemBaseAmount }}</span></p>
+                            <span class="mr-2 price-sale">S/. {{itemBaseAmount}}</span>
                         </p>
                     </div>
                 </div>
@@ -52,9 +42,11 @@ Vue.component('myitem', {
                             </a>
                         </template>
                     </div>
-                </div>
+                    
             </div>
+
         </div>
+
     </div>
 
 
@@ -81,7 +73,13 @@ Vue.component('myitem', {
             // $emit('change', $event.target.checked)
             this.$emit('shopevent', this.data)
         }
+    },
+    methods:{
+        setIdProduct(i){
+            localStorage.setItem('idProduct',i);
+        }
     }
+
 })
 
 

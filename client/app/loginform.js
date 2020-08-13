@@ -6,7 +6,8 @@ Vue.component('loginform', {
         <div>
 
             <div id="formulario1" style="display: block">
-                <form action="inicioSesion" method="post">
+                <form  action="index.html" class="needs-validation" novalidate>
+
                     <div class="form-group">
                         <label for="exampleInputEmail1">Usuario</label>
                         <input
@@ -19,6 +20,7 @@ Vue.component('loginform', {
                             v-model="userInput"
                         >
                     </div>
+                    
                     <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
                         <input
@@ -34,12 +36,16 @@ Vue.component('loginform', {
                     <button
                         type="button"
                         class="btn btn-primary"
-                        v-on:click="handleLogin()"
+                        v-on:click="handleLogin"
                     >Iniciar Sesión</button>
+
                 </form>
 
+                <br>
                 <div  v-if="displayError" class="alert alert-danger" role="alert">
-                    "mensaje"
+                    <li v-for='error in errors'>
+                    {{error}}
+                    </li>
                 </div>
             </div>
         </div>
