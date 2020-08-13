@@ -11,28 +11,25 @@ class PedidoContoller extends Controller
 {
     function pagoListProducto(Request $req){
 
-        // $obj = dd(json_decode($req->array_produ, true));
-
-        // $data = json_decode($req->array_produ->getContent(), true);
-
-        // echo "El valor de '{$obj}'";
-        // dd($req->array_produ);
-        // dd($req->array_produ);
+        mySQLInsert("INSERT INTO pedido_usuario (id_usuario, flg_pedido) 
+        VALUES ('{$req->id_persona}','N' )");
 
         foreach ($req->array_produ AS $clave => $valor) {
             dd($valor);
-            // dd($clave);
 
-            echo "El valor de $clave es: $valor";
-
+            mySQLConsulta("CALL updatePedidoById('{$valor->id_producto}', '{$valor->cant_producto}', @total, @id_p_x_u)");
+            
+            echo "El valor es: {$valor->id_producto}";
         }
 
         return mySQLConsulta(
-            "SELECT SUM(precio_total_pedido) AS total
-               FROM pedido_usuario
-              WHERE id_usuario = '{$req->id_user}'
-                AND flg_pedido = 'N'
-        ");
+            "SELECT fecha_pedido,
+                    precio_total_pedido,
+                    'Se efectuo el pago correctamente' AS msj 
+               FROM `pedido_usuario`
+              ORDER BY 1 DESC 
+              LIMIT 1 "
+        );
     }
 
     function getprecioTotal(Request $req){

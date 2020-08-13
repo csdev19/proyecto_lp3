@@ -32,6 +32,3 @@ $_SESSION["OBJ_CONTROL"] = JSON_ENCODE(
         'msj'    => $_SESSION["MSJ_CONTROL"]
      ]
     );
-
-$_SESSION["ID_USER"]   = "1";
-
