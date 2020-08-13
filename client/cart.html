@@ -280,6 +280,11 @@
 				let usuario  = localStorage.getItem('usuario');
 
 				usuario = JSON.parse(usuario)
+
+				if (!usuario) {
+					console.log('hola')
+					this.errorUsuario();
+				}
                 console.log("usuario", usuario)
 				usuario = usuario[0];
                 console.log("usuario", usuario)
@@ -328,6 +333,13 @@
 				.catch(err => {
 				console.error(err);
 				});
+			},
+			errorUsuario() {
+				Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Debes logearte para pagar!',
+				})
 			}
 		},
 		computed:{
