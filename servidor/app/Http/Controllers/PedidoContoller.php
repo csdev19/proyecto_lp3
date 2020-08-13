@@ -11,25 +11,28 @@ class PedidoContoller extends Controller
 {
     function pagoListProducto(Request $req){
 
-        mySQLInsert("INSERT INTO pedido_usuario (id_usuario, flg_pedido) 
+        mySQLInsert("INSERT INTO pedido_usuario (id_usuario, flg_pedido)
         VALUES ('{$req->id_persona}','N' )");
 
         foreach ($req->array_produ AS $clave => $valor) {
-            dd($valor);
+            // dd($valor);
 
-            mySQLConsulta("CALL updatePedidoById('{$valor->id_producto}', '{$valor->cant_producto}', @total, @id_p_x_u)");
-            
-            echo "El valor es: {$valor->id_producto}";
+            $id_producto = $valor["id_producto"];
+            $cant_producto = $valor["cant_producto"];
+
+            mySQLProcedure("CALL pagarListProducto('{$id_producto}', '{$cant_producto}', @total, @id_p_x_u)");
         }
 
         return mySQLConsulta(
-            "SELECT fecha_pedido,
+            "SELECT id_pedidoUsuario, 
+                    fecha_pedido,
                     precio_total_pedido,
-                    'Se efectuo el pago correctamente' AS msj 
-               FROM `pedido_usuario`
-              ORDER BY 1 DESC 
+                    'Se efectuo el pago correctamente' AS msj
+               FROM pedido_usuario
+              ORDER BY 1 DESC
               LIMIT 1 "
         );
+
     }
 
     function getprecioTotal(Request $req){
@@ -56,10 +59,10 @@ class PedidoContoller extends Controller
         );
 
         if($isValidate == true){
-            return mySQLConsulta("CALL updatePedidoById('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
+            return mySQLProcedure("CALL updatePedidoById('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
         }
 
-        return mySQLConsulta("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
+        return mySQLProcedure("CALL insertarPedido('{$req->id_user}', '{$req->id_producto}', '{$req->cantidad}', @total, @id_new)");
 
     }
 
@@ -69,7 +72,7 @@ class PedidoContoller extends Controller
             return $isValidate;
         }
 
-        return mySQLConsulta("SELECT * FROM  categoria where id_categoria= '{$req->id_categoria}'");
+        return mySQLProcedure("SELECT * FROM  categoria where id_categoria= '{$req->id_categoria}'");
     }
 }
 
