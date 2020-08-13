@@ -111,9 +111,10 @@
                             'id_categoria': datacategoryid
 						}
 					}).then(response=>{
-						console.log('entre aqui')
-						this.lista_productos = response.data
-						console.log(this.lista_productos)
+						const lista = response.data.map(prod => {
+							return new Item(prod);
+						})
+						this.lista_productos = lista;
 				})
 			},
 			getCategorybyid(){

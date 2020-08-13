@@ -102,7 +102,7 @@
 															<i class="ion-ios-remove" style="color: grey"></i>
 														</button>
 													</span>
-													<input type="text" name="quantity" class="quantity form-control input-number" v-model="item.nro_productos" min="1" max="100">
+													<input disabled type="text" name="quantity" class="quantity form-control input-number" v-model="item.nro_productos" min="1" max="100">
 													<span class="input-group-btn ml-2">
 														<button type="button" class="quantity-right-plus btn" data-type="plus" v-on:click="addItem(item)">
 															<i class="ion-ios-add" style="color: grey"></i>
@@ -136,7 +136,7 @@
                                 <span id="total" v-text="`S/ `+totalprice"></span>
                             </p>
                         </div>
-                        <p><a href="caja" class="btn btn-primary py-3 px-4" id="boton">Proceder a pagar</a></p>
+                        <p><a  v-on:click="pagar()" class="btn btn-primary py-3 px-4" id="boton">Proceder a pagar</a></p>
                     </div>
 				</div>
 				
@@ -271,6 +271,9 @@
                     JSON.stringify(shopList)
                 );
 
+			},
+			pagar: function() {
+				console.log('this.items', this.items)
 			}
 		},
 		computed:{

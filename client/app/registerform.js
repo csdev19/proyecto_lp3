@@ -149,6 +149,8 @@ Vue.component('registerform', {
                             'usuario', 
                             JSON.stringify(info)
                         )
+                        // Simulate an HTTP redirect:
+                        window.location.replace("file:///C:/xampp/htdocs/proyecto_lp3/client/index.html");
                     })
                 }
             })

@@ -7,7 +7,7 @@ ob_start();
 $_SESSION["ROOT"]         = "root";      //USER DE MYSQL
 $_SESSION["PASSWORD"]     = "";      //PASSWORD DE MYSQL
 $_SESSION["SERVIDOR"]     = "localhost"; //SERVIDOR
-$_SESSION["DATA_BASE"]    = "pruebita2";  //NOMBRE DE LA BASE DE DATOS // NO PUSHEAR ESTO MRD :V
+$_SESSION["DATA_BASE"]    = "tienda";  //NOMBRE DE LA BASE DE DATOS // NO PUSHEAR ESTO MRD :V
 
 //STATUS DE PETICIONES
 $_SESSION["STATUS_SUCCES"]  = "0";

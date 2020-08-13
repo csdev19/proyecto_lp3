@@ -5,7 +5,7 @@ Vue.component('myitem', {
     template:
     `
 
-    <div class="col-md-6 col-lg-3 ">
+    <div class="col-md-6 col-lg-3">
         
         <div class="product">
             <a href="#" class="img-prod">
@@ -55,6 +55,9 @@ Vue.component('myitem', {
     `,
     props: ['data'],
     data() {
+            
+        console.log('this.data.itemBaseAmount', this.data.itemBaseAmountx)
+        console.log("data -> this.data", this.data)
         return {
             itemStatus        : this.data.itemStatus,
             itemPercent       : this.data.itemPercent,

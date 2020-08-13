@@ -77,6 +77,8 @@ Vue.component('loginform', {
                     'usuario', 
                     JSON.stringify(info)
                 )
+                window.location.replace("file:///C:/xampp/htdocs/proyecto_lp3/client/index.html");
+
             })
             /**
             {
