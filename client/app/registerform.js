@@ -124,7 +124,6 @@ Vue.component('registerform', {
     },
     methods: {
         handleRegister() {
-            console.log('antes')
             const body = {
                 "user"     : this.usuarioInput,
                 "password" : this.passwordInput,
@@ -134,7 +133,6 @@ Vue.component('registerform', {
 
             registerUser(body)
             .then(data => {
-                console.log('data', data)
                 if(data.status == 'ok') {
                     
                     loginUser({
@@ -142,9 +140,7 @@ Vue.component('registerform', {
                         password: this.passwordInput
                     })
                     .then(({data}) => {
-                        console.log('data', data)
                         const info = (data.status == '1') ? '' : data;
-                        console.log("handleRegister -> info", info)
                         localStorage.setItem(
                             'usuario', 
                             JSON.stringify(info)
@@ -174,7 +170,6 @@ Vue.component('registerform', {
             //     return response.json();
             // })
             // .then(data => {
-            //     console.log('data', data)
 
             //     localStorage.setItem('usuario', JSON.stringify(this.dataUser))
             // })
@@ -182,7 +177,6 @@ Vue.component('registerform', {
             //     console.error(err);
             // });
 
-            console.log('1')
         }   
     }
 })

@@ -126,21 +126,16 @@
                             'id_categoria': categoryid
 						}
 					}).then(response=>{
-						console.log('traje info de la categoria por id')
 						this.categoria = response.data
-						console.log(this.categoria)
 				})
 			},
 			handleShop(event) {
-				console.log('hola')
                 let shopList = localStorage.getItem('shopList');
-                console.log("handleShop -> shopList", shopList)
                 if(!shopList) {
                     shopList = [];
                 } else {
                     shopList = (typeof shopList == 'string') ? JSON.parse(shopList) : shopList;
                 }
-                console.log("handleShop -> shopList", shopList)
                 const { id_producto } = event;
                 const newProducto = event;
 
@@ -163,8 +158,6 @@
                     };
                     shopList = [item,...shopList];
                 }
-                console.log("handleShop -> shopList", shopList)
-                console.log('event', event)
 
                 localStorage.setItem(
                     'shopList',
@@ -183,7 +176,6 @@
                 let shopList = localStorage.getItem('shopList');
 
                 shopList = JSON.parse(shopList);
-            console.log("shopList", shopList)
             this.shopList = shopList;
 				this.getProductsbyid()
 				this.getCategorybyid()

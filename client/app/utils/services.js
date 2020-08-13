@@ -86,7 +86,6 @@ function getListCategorias() {
             }
         })
         .then((response) => {
-            console.log('hola')
             return response.json();
         })
         .then((data) => {
