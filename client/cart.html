@@ -201,6 +201,7 @@
 					'shopList',
 					JSON.stringify(shopList)
 				);
+				this.shopList = shopList;
        		 },
 			disabled: function(index){
 				return this.items[index].nro_productos === 1;
@@ -235,7 +236,8 @@
                 localStorage.setItem(
                     'shopList',
                     JSON.stringify(shopList)
-                );
+				);
+				this.shopList = shopList;
 			},
 			substractItem: function(item_selected) {
 				this.items = this.items.map(item => {
@@ -262,6 +264,7 @@
                     JSON.stringify(shopList)
                 );
 
+				this.shopList = shopList;
 			},
 			pagar: function() {
 				let usuario  = localStorage.getItem('usuario');
