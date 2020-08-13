@@ -4,9 +4,6 @@ Vue.component('loginform', {
     template:
     `
         <div>
-            <button 
-            v-on:click="prueba()"
-            > prueba</button>
             <div id="formulario1" style="display: block">
                 <form  action="index.html" class="needs-validation" novalidate>
 
