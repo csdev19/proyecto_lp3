@@ -4,6 +4,9 @@ function cargaremosData() {
         b: '2',
         c: '3'
     };
-    return antes;
+    return {
+        ...antes,
+        c: '3'
+    };
 }
 

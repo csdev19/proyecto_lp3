@@ -39,7 +39,7 @@ Vue.component('myfooter', {
                             <div class="block-23 mb-3">
                                 <ul>
                                     <li><span class="icon icon-map-marker"></span><span class="text">Mercado Plaza Villa Sur, puesto A-29. Villa el Salvador</span></li>
-                                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+51 999 999 999</span></a></li>
+                                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+51 920 006 280</span></a></li>
                                     <li><a href="#"><span class="icon icon-envelope"></span><span class="text">contactos@dulcekat.com</span></a></li>
                                 </ul>
                             </div>

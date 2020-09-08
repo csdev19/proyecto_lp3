@@ -30,7 +30,7 @@ Vue.component('mytopline', {
     `,
     data() {
         return {
-            numero_telefono: '+51 999 999 99'
+            numero_telefono: '+51 920 006 280'
         }
     }
 })

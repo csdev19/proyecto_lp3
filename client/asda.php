@@ -38,7 +38,7 @@
 						<div class="row d-flex">
 							<div class="col-md pr-4 d-flex topper align-items-center">
 								<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-								<span class="text">+51 999 999 999</span>
+								<span class="text">+51 920 006 280</span>
 							</div>
 							<div class="col-md pr-4 d-flex topper align-items-center">
 								<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
@@ -508,7 +508,7 @@
 							</li>
 							<li><a href="#">
 								<span class="icon icon-phone"></span>
-								<span class="text">+51 999 999 999</span>
+								<span class="text">+51 920 006 280</span>
 							</a></li>
 							<li><a href="#"><span class="icon icon-envelope"></span><span class="text">contactos@katiplass.com</span></a></li>
 						</ul>
