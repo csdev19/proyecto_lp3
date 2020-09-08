@@ -1,3 +1,4 @@
-function cargarData() {
-    return {}
+function cargaremosData() {
+    const a = {};
+    return a;
 }
