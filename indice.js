@@ -1,4 +1,9 @@
 function cargaremosData() {
-    const a = {};
-    return a;
+    const antes = {
+        a: '1',
+        b: '2',
+        c: '3'
+    };
+    return antes;
 }
+
