@@ -1,10 +1,11 @@
 function cargaremosData() {
-    const juntar = {
+    const antes = {
         a: '1',
-        b: '2'
+        b: '2',
+        c: '3'
     };
     return {
-        ...juntar,
+        ...antes,
         c: '3'
     };
 }
